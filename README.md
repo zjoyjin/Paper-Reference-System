@@ -23,7 +23,7 @@ User Stories:
   
 ## Authors
 1. Joyee Jin
-2. Ashely Bi
+2. Ashley Bi
 3. Amy Sun
 4. Bowen Zhang
 5. Elizabeth Liu
