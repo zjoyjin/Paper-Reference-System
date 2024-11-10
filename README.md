@@ -22,9 +22,9 @@ User Stories:
 - As a student writing a research paper on the hippo pathway, I want to be able to use the generated directed graph to see which paper cite which. This way, I can see which paper is the most recent (as it cites most of the other papers) or which paper contains the most fundamental information (as most of the other papers cite it), and then use the one that corresponds most with what I want in my own research paper.
   
 ## Authors
-1. Joyee Jin
-2. Ashley Bi
-3. Amy Sun
-4. Bowen Zhang
-5. Elizabeth Liu
+1. Joyee Jin @zjoyjin
+2. Ashley Bi @trashb
+3. Amy Sun @amysun11
+4. Bowen Zhang @SuperBowen
+5. Elizabeth Liu @lizzie_liu
 
