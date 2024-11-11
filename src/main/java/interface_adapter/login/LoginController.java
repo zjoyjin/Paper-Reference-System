@@ -25,4 +25,12 @@ public class LoginController {
 
         loginUseCaseInteractor.execute(loginInputData);
     }
+
+    /**
+     * Executes the "switch to Signuo View" Use Case.
+     */
+    public void switchToSignupView() {
+        loginUseCaseInteractor.switchToSignupView();
+    }
+
 }
