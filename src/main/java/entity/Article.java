@@ -1,5 +1,8 @@
 package entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * This class represents the information about a research paper,
  * and represents an Article node in our directed graph.
@@ -11,10 +14,10 @@ public class Article {
     private final String doi;
     private final String title;
     private final String[] authors;
-    private final String[] publication;
-    private final String[] references;
+    private final String publication;
+    private final Set<String> references;
 
-    public Article(String doi, String title, String[] authors, String[] publication, String[] references) {
+    public Article(String doi, String title, String[] authors, String publication, HashSet<String> references) {
         this.link = "https://doi.org/" + doi;
         this.doi = doi;
         this.title = title;
@@ -39,11 +42,11 @@ public class Article {
         return authors;
     }
 
-    public String[] getPublication() {
+    public String getPublication() {
         return publication;
     }
 
-    public String[] getReferences() {
+    public Set<String> getReferences() {
         return references;
     }
 }
