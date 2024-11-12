@@ -1,5 +1,7 @@
 package use_case.request_data;
 
+import java.util.Set;
+
 import entity.Article;
 
 /**
