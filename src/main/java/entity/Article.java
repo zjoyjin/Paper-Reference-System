@@ -1,6 +1,5 @@
 package entity;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,7 +16,7 @@ public class Article {
     private final String publication;
     private final Set<String> references;
 
-    public Article(String doi, String title, String[] authors, String publication, HashSet<String> references) {
+    public Article(String doi, String title, String[] authors, String publication, Set<String> references) {
         this.link = "https://doi.org/" + doi;
         this.doi = doi;
         this.title = title;
