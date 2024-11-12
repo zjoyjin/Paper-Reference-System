@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ChatPost {
     public static void main(String[] args) {
-        Cohere cohere = Cohere.builder().token("2YU85SBd4B0DOUxLoCHRbbuagFRqzJWz7oeJx26u").clientName("snippet").build();
+        Cohere cohere = Cohere.builder().token("api keys").clientName("snippet").build();
 
         NonStreamedChatResponse response = cohere.chat(
                 ChatRequest.builder()
