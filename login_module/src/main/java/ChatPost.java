@@ -13,7 +13,7 @@ public class ChatPost {
 
         NonStreamedChatResponse response = cohere.chat(
                 ChatRequest.builder()
-                        .message("What year was he born?")
+                        .message("What year was he born in?")
                         .chatHistory(
                                 List.of(Message.user(ChatMessage.builder().message("Who discovered gravity?").build()),
                                         Message.chatbot(ChatMessage.builder().message("The man who is widely credited with discovering gravity is Sir Isaac Newton").build()))).build());
