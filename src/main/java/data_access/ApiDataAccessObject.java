@@ -46,10 +46,10 @@ public class ApiDataAccessObject implements ApiDataAccessInterface {
     // private final UserFactory articleFactory;
     // TODO: -> Article Factory
 
-    public ApiDataAccessObject(UserFactory userFactory) {
-        this.articleFactory = userFactory;
-        // No need to do anything to reinitialize a user list! The data is the cloud that may be miles away.
-    }
+//    public ApiDataAccessObject(UserFactory userFactory) {
+//        this.articleFactory = userFactory;
+//        // No need to do anything to reinitialize a user list! The data is the cloud that may be miles away.
+//    }
 
     @Override
     public Set<Article> get(String sortType, String query) {
@@ -73,40 +73,46 @@ public class ApiDataAccessObject implements ApiDataAccessInterface {
 
             if (responseBody.getString(STATUS_CODE_LABEL).equals(SUCCESS_CODE)) {
                 final JSONArray resultsJSONArray = responseBody.getJSONObject(MESSAGE).getJSONArray(ITEMS);
-                for (int i = 0; i < NUM_OUTPUTS; i++) {
+                int i = 0;
+                while (articles.size() < NUM_OUTPUTS) {
                     final JSONObject articleJSONObject = resultsJSONArray.getJSONObject(i);
 
-                    final String doi = articleJSONObject.getString(DOI);
-                    final String title = articleJSONObject.getJSONArray(TITLE).getString(0);
-                    final JSONArray authorsJSONArr = articleJSONObject.getJSONArray(AUTHOR);
-                    final String[] authors = new String[authorsJSONArr.length()];
-                    final StringJoiner date = new StringJoiner("/");
-                    final Set<String> references = new HashSet<>();
+                    if (articleJSONObject.has(DOI) && articleJSONObject.has(TITLE) && articleJSONObject.has(AUTHOR)
+                            && articleJSONObject.has(DATE) && articleJSONObject.has(REFERENCE)) {
 
-                    // get authors
-                    for (int j = 0; j < authorsJSONArr.length(); j++) {
-                        final JSONObject author = authorsJSONArr.getJSONObject(j);
-                        authors[j] = author.getString(GIVEN) + " " + author.getString(FAMILY);
-                    }
-                    // get date
-                    final JSONArray dateJSONArr = articleJSONObject.getJSONObject(DATE).getJSONArray(DATE_PARTS)
-                            .getJSONArray(0);
-                    for (int k = 0; k < dateJSONArr.length(); k++) {
-                        date.add(Integer.toString(dateJSONArr.getInt(i)));
-                    }
-                    // get references (as set of DOIs)
-                    final JSONArray refsJSONArr = articleJSONObject.getJSONArray(REFERENCE);
-                    for (int l = 0; l < refsJSONArr.length(); l++) {
-                        references.add(refsJSONArr.getJSONObject(l).getString(DOI));
-                    }
+                        final String doi = articleJSONObject.getString(DOI);
+                        final String title = articleJSONObject.getJSONArray(TITLE).getString(0);
+                        final JSONArray authorsJSONArr = articleJSONObject.getJSONArray(AUTHOR);
+                        final String[] authors = new String[authorsJSONArr.length()];
+                        final StringJoiner date = new StringJoiner("/");
+                        final Set<String> references = new HashSet<>();
 
-                    // Just for squiggly removal:
-                    System.out.println(title);
-                    System.out.println(authors[0]);
-                    System.out.println(date.toString());
-                    // TODO: use articleFactory?
-                    // articleFactory.create(doi, title, authors, date.toString(), references);
-                    articles.add(new Article(doi, title, authors, date.toString(), references));
+                        // get authors
+                        for (int j = 0; j < authorsJSONArr.length(); j++) {
+                            final JSONObject author = authorsJSONArr.getJSONObject(j);
+                            authors[j] = author.getString(GIVEN) + " " + author.getString(FAMILY);
+                        }
+                        // get date
+                        final JSONArray dateJSONArr = articleJSONObject.getJSONObject(DATE).getJSONArray(DATE_PARTS)
+                                .getJSONArray(0);
+                        for (int k = 0; k < dateJSONArr.length(); k++) {
+                            date.add(Integer.toString(dateJSONArr.getInt(k)));
+                        }
+                        // get references (as set of DOIs)
+                        final JSONArray refsJSONArr = articleJSONObject.getJSONArray(REFERENCE);
+                        for (int l = 0; l < refsJSONArr.length(); l++) {
+                            final JSONObject refJSONObject = refsJSONArr.getJSONObject(l);
+                            if (refJSONObject.has(DOI)) {
+                                references.add(refsJSONArr.getJSONObject(l).getString(DOI));
+                            }
+                        }
+
+                        // Just for squiggly removal:
+                        System.out.println(title + "\n" + authors[0] + "\n" + date.toString());
+                        // NOTE: use articleFactory?
+                        articles.add(new Article(doi, title, authors, date.toString(), references));
+                    }
+                    i++;
                 }
                 return null;
             }
