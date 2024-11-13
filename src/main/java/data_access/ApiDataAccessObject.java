@@ -107,14 +107,13 @@ public class ApiDataAccessObject implements ApiDataAccessInterface {
                             }
                         }
 
-                        // Just for squiggly removal:
-                        System.out.println(title + "\n" + authors[0] + "\n" + date.toString());
+                        // System.out.println(title + "\n" + authors[0] + "\n" + date.toString());
                         // NOTE: use articleFactory?
                         articles.add(new Article(doi, title, authors, date.toString(), references));
                     }
                     i++;
                 }
-                return null;
+                return articles;
             }
             // if there's an error code, return the error message:
             else {
