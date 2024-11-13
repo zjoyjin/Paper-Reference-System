@@ -17,12 +17,10 @@ public interface ApiDataAccessInterface {
     Set<Article> get(String sortType, String query);
 
     /**
-     * Returns the set of articles matching the current query in ascending order by relevance.
+     * Returns the set of articles matching the current query; to be overloaded.
      * @param query the username to look up
      * @return the set of articles.
      */
-    default Set<Article> getByRelevance(String query) {
-        return get("relevance", query);
-    }
+    Set<Article> get(String query);
 
 }
