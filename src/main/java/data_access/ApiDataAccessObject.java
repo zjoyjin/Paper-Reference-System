@@ -121,6 +121,15 @@ public class ApiDataAccessObject implements ApiDataAccessInterface {
         }
     }
 
+    /**
+     * Returns the set of articles matching the current query in ascending order by relevance.
+     * @param query the username to look up
+     * @return the set of articles.
+     */
+    public Set<Article> get(String query) {
+        return get("relevance", query);
+    }
+
     //////////////////////STUFF BELOW COPIED OVER FROM DBUSERACCESSOBJECT ////////////////////////
 
 //    @Override
