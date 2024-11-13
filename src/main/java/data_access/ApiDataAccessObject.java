@@ -74,7 +74,7 @@ public class ApiDataAccessObject implements ApiDataAccessInterface {
             if (responseBody.getString(STATUS_CODE_LABEL).equals(SUCCESS_CODE)) {
                 final JSONArray resultsJSONArray = responseBody.getJSONObject(MESSAGE).getJSONArray(ITEMS);
                 int i = 0;
-                while (articles.size() < NUM_OUTPUTS) {
+                while (articles.size() < Integer.min(NUM_OUTPUTS, resultsJSONArray.length())) {
                     final JSONObject articleJSONObject = resultsJSONArray.getJSONObject(i);
 
                     if (articleJSONObject.has(DOI) && articleJSONObject.has(TITLE) && articleJSONObject.has(AUTHOR)
