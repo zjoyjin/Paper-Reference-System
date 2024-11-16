@@ -50,11 +50,15 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         final LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel("Password"), passwordInputField);
+        // Hide password input field until change password button pressed
+        passwordInputField.setVisible(false);
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         username = new JLabel();
 
         final LabelTextPanel searchInfo = new LabelTextPanel(new JLabel("Search"), searchInputField);
+        // Hide search input field until change password button pressed
+        searchInputField.setVisible(false);
 
         final JPanel buttons = new JPanel();
         logOut = new JButton("Log Out");
@@ -96,12 +100,22 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(changePassword)) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
+                        if (passwordInputField.isVisible()) {
+                            // Allow user to change password
+                            final LoggedInState currentState = loggedInViewModel.getState();
 
-                        this.changePasswordController.execute(
-                                currentState.getUsername(),
-                                currentState.getPassword()
-                        );
+                            this.changePasswordController.execute(
+                                    currentState.getUsername(),
+                                    currentState.getPassword()
+                            );
+                        }
+                        else {
+                            // Make password input & password error field visible again
+                            passwordInputField.setVisible(!passwordInfo.isVisible());
+                            passwordInputField.setVisible(!passwordInputField.isVisible());
+                        }
+                        revalidate();
+                        repaint();
                     }
                 }
         );
@@ -110,16 +124,11 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(logOut)) {
-                        // TODO: execute the logout use case through the Controller
-                        // 1. get the state out of the loggedInViewModel. It contains the username.
-                        // 2. Execute the logout Controller.
-
                         final LoggedInState currentState = loggedInViewModel.getState();
 
                         this.logoutController.execute(
                                 currentState.getUsername()
                         );
-
                     }
                 }
         );
@@ -128,9 +137,18 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(search)) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
+                        if (searchInputField.isVisible()) {
+                            // Allow user to enter a research topic in search bar
+                            final LoggedInState currentState = loggedInViewModel.getState();
 
-                        this.queryController.execute(currentState.getTopic());
+                            this.queryController.execute(currentState.getTopic());
+                        }
+                        else {
+                            // Make search input field and label visible again
+                            searchInputField.setVisible(!searchInputField.isVisible());
+                        }
+                        revalidate();
+                        repaint();
                     }
                 }
         );
@@ -150,6 +168,16 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         if (evt.getPropertyName().equals("state")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
             username.setText(state.getUsername());
+
+            // Reset visibility of the password input field and error field
+            passwordInputField.setVisible(false);
+            passwordErrorField.setVisible(false);
+
+            // Reset visibility of the search input field
+            searchInputField.setVisible(false);
+
+            revalidate();
+            repaint();
         }
         else if (evt.getPropertyName().equals("password")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
@@ -167,7 +195,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     }
 
     public void setLogoutController(LogoutController logoutController) {
-        // TODO: save the logout controller in the instance variable.
         this.logoutController = logoutController;
     }
 
