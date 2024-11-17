@@ -20,6 +20,8 @@ public class Main {
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
+                                            .addQueryView()
+                                            .addQueryUseCase()
                                             .build();
 
         application.pack();

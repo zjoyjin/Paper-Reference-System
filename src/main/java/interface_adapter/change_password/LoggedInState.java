@@ -9,6 +9,8 @@ public class LoggedInState {
     private String password = "";
     private String passwordError;
 
+    private String topic = "";
+
     public LoggedInState(LoggedInState copy) {
         username = copy.username;
         password = copy.password;
@@ -38,5 +40,13 @@ public class LoggedInState {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 }
