@@ -1,9 +1,6 @@
 package data_access;
 
 import entity.Article;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,9 +14,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.StringJoiner;
 
-import use_case.request_data.ApiDataAccessInterface;
+import use_case.query.QueryDataAccessInterface;
 
-public class TestDataAccessObject implements ApiDataAccessInterface {
+public class TestDataAccessObject implements QueryDataAccessInterface {
     private static final String SUCCESS_CODE = "ok";
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";

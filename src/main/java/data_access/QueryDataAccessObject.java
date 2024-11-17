@@ -8,21 +8,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import entity.Article;
-import entity.UserFactory;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import use_case.change_password.ChangePasswordUserDataAccessInterface;
-import use_case.login.LoginUserDataAccessInterface;
-import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.request_data.ApiDataAccessInterface;
+import use_case.query.QueryDataAccessInterface;
 
 /**
  * The DAO for user data.
  */
-public class ApiDataAccessObject implements ApiDataAccessInterface {
+public class QueryDataAccessObject implements QueryDataAccessInterface {
     //        LoginUserDataAccessInterface,
 //        ChangePasswordUserDataAccessInterface,
 //        LogoutUserDataAccessInterface {
@@ -46,7 +40,7 @@ public class ApiDataAccessObject implements ApiDataAccessInterface {
     // private final UserFactory articleFactory;
     // TODO: -> Article Factory
 
-//    public ApiDataAccessObject(UserFactory userFactory) {
+//    public QueryDataAccessObject(UserFactory userFactory) {
 //        this.articleFactory = userFactory;
 //        // No need to do anything to reinitialize a user list! The data is the cloud that may be miles away.
 //    }
