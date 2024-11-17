@@ -1,4 +1,4 @@
-package use_case.request_data;
+package use_case.query;
 
 import java.util.Set;
 
@@ -7,7 +7,7 @@ import entity.Article;
 /**
  * DAO for the Api Data Request Use Case.
  */
-public interface ApiDataAccessInterface {
+public interface QueryDataAccessInterface {
     /**
      * Returns the set of articles matching the current query.
      * @param sortType how the results should be sorted
