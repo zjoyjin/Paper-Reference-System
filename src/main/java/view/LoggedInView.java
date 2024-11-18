@@ -49,14 +49,14 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("Password"), passwordInputField);
+                new JLabel(""), passwordInputField);
         // Hide password input field until change password button pressed
         passwordInputField.setVisible(false);
 
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         username = new JLabel();
 
-        final LabelTextPanel searchInfo = new LabelTextPanel(new JLabel("Search"), searchInputField);
+        final LabelTextPanel searchInfo = new LabelTextPanel(new JLabel(""), searchInputField);
         // Hide search input field until change password button pressed
         searchInputField.setVisible(false);
 
@@ -111,7 +111,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                         }
                         else {
                             // Make password input & password error field visible again
-                            passwordInputField.setVisible(!passwordInfo.isVisible());
                             passwordInputField.setVisible(!passwordInputField.isVisible());
                         }
                         revalidate();
