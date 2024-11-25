@@ -15,4 +15,9 @@ public interface QueryInputBoundary {
      * Switch to results page view.
      */
     void switchToResultsView();
+
+    /**
+     * Switch to query page view.
+     */
+    void switchToQueryView();
 }
