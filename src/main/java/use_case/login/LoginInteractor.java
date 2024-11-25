@@ -42,4 +42,9 @@ public class LoginInteractor implements LoginInputBoundary {
     public void switchToSignupView() {
         loginPresenter.switchToSignupView();
     }
+
+    @Override
+    public void switchToQueryView() {
+        loginPresenter.switchToQueryView();
+    }
 }
