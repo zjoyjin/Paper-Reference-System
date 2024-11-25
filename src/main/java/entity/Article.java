@@ -48,4 +48,9 @@ public class Article {
     public Set<String> getReferences() {
         return references;
     }
+
+    public boolean hasReference(Article article) {
+        return this.references.contains(article.getDoi());
+    }
+
 }
