@@ -27,9 +27,10 @@ import javafx.embed.swing.JFXPanel;
 
 public class ResultsView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private final QueryViewModel queryViewModel;
+    private final ResultsViewModel resultsViewModel;
+    private final String viewName = "results";
+    private ResultsController resultsController;
 
-    private BufferedImage image;
     private final JFXPanel jfxPanel = new JFXPanel();
     Digraph<String, String> g = new DigraphEdgeList<>();
 
