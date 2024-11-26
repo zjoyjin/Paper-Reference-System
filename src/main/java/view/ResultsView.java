@@ -30,6 +30,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     private final QueryViewModel queryViewModel;
 
     private BufferedImage image;
+    private final JFXPanel jfxPanel = new JFXPanel();
     Digraph<String, String> g = new DigraphEdgeList<>();
 
     public ResultsView(QueryViewModel queryViewModel, Set<Article> articles, Set<Edge> edges) {
@@ -42,7 +43,6 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // add javafx panel for the graph
-        final JFXPanel jfxPanel = new JFXPanel();
         this.add(jfxPanel);
     private void populateGraph(Set<Article> articles, Set<Edge> edges) {
         for (Article a : articles) {
