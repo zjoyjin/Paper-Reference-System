@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 
-// GUI class for summarization view
 public class SummaryView extends JFrame {
 
     private JTextArea summaryArea;
