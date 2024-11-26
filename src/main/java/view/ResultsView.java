@@ -30,6 +30,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     private final QueryViewModel queryViewModel;
 
     private BufferedImage image;
+    Digraph<String, String> g = new DigraphEdgeList<>();
 
     public ResultsView(QueryViewModel queryViewModel, Set<Article> articles, Set<Edge> edges) {
 
@@ -43,6 +44,14 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         // add javafx panel for the graph
         final JFXPanel jfxPanel = new JFXPanel();
         this.add(jfxPanel);
+    private void populateGraph(Set<Article> articles, Set<Edge> edges) {
+        for (Article a : articles) {
+            g.insertVertex(a.getTitle());
+        }
+        for (Edge e : edges) {
+            g.insertEdge(e.getPaper().getTitle(), e.getReference().getTitle(), "");
+        }
+    }
 
         // Create the graph
         Digraph<String, String> g = createGraph(articles, edges);
