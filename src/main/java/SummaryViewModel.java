@@ -1,6 +1,6 @@
 public class SummaryViewModel {
     private String summary;
-    //check
+    //3
     public SummaryViewModel(String summary) {
         this.summary = summary;
     }
