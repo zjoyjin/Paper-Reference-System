@@ -12,11 +12,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import use_case.query.QueryDataAccessInterface;
+import use_case.results.ResultsDataAccessInterface;
 
 /**
  * The DAO for user data.
  */
-public class QueryDataAccessObject implements QueryDataAccessInterface {
+public class QueryDataAccessObject implements QueryDataAccessInterface, ResultsDataAccessInterface {
     //        LoginUserDataAccessInterface,
 //        ChangePasswordUserDataAccessInterface,
 //        LogoutUserDataAccessInterface {
@@ -37,10 +38,7 @@ public class QueryDataAccessObject implements QueryDataAccessInterface {
     private static final String REFERENCE = "reference";
 
     private static final int NUM_OUTPUTS = 10;
-    // private final UserFactory articleFactory;
-    // TODO: -> Article Factory
 
-//    public QueryDataAccessObject(UserFactory userFactory) {
     private Set<Article> articles = new HashSet<>();
 
     public QueryDataAccessObject() {
