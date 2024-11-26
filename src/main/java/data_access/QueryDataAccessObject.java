@@ -41,6 +41,8 @@ public class QueryDataAccessObject implements QueryDataAccessInterface {
     // TODO: -> Article Factory
 
 //    public QueryDataAccessObject(UserFactory userFactory) {
+    private Set<Article> articles = new HashSet<>();
+
     public QueryDataAccessObject() {
 //        this.articleFactory = userFactory;
 //        // No need to do anything to reinitialize a user list! The data is the cloud that may be miles away.
@@ -48,7 +50,6 @@ public class QueryDataAccessObject implements QueryDataAccessInterface {
 
     @Override
     public Set<Article> get(String sortType, String query) {
-        Set<Article> articles = new HashSet<>();
 
         // format query for insertion into API request
         final String urlQuery = query.replaceAll(" +", "+");
@@ -104,11 +105,11 @@ public class QueryDataAccessObject implements QueryDataAccessInterface {
 
                         // System.out.println(title + "\n" + authors[0] + "\n" + date.toString());
                         // NOTE: use articleFactory?
-                        articles.add(new Article(doi, title, authors, date.toString(), references));
+                        this.articles.add(new Article(doi, title, authors, date.toString(), references));
                     }
                     i++;
                 }
-                return articles;
+                return this.articles;
             }
             // if there's an error code, return the error message:
             else {
