@@ -10,4 +10,6 @@ public interface QueryOutputBoundary {
      * Switches to the Results View.
      */
     void switchToResultsView();
+
+    void switchToQueryView();
 }

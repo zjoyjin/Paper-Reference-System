@@ -26,4 +26,10 @@ public class QueryPresenter implements QueryOutputBoundary {
         viewManagerModel.setState("results");
         viewManagerModel.firePropertyChanged();
     }
+
+    @Override
+    public void switchToQueryView() {
+        viewManagerModel.setState("search");
+        viewManagerModel.firePropertyChanged();
+    }
 }
