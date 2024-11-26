@@ -14,7 +14,6 @@ public class SummaryView extends JFrame {
     private JLabel titleLabel;
 
     public SummaryView() {
-        // Set up the frame
         setTitle("Summarization Viewer");
         setSize(600, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
