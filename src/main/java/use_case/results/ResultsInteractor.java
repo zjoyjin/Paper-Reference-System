@@ -20,7 +20,7 @@ public class ResultsInteractor implements ResultsInputBoundary {
     @Override
     public void execute(ResultsInputData inputData) {
         final String query = inputData.getQuery();
-        final Set<Article> articles = dataAccessInterface.getArticles(query);
+        final Set<Article> articles = dataAccessInterface.get(query);
         final Set<Edge> edges = createEdges(articles);
 
         final ResultsOutputData outputData = new ResultsOutputData(articles, edges, false);
