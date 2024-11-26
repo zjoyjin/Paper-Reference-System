@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import data_access.InMemoryUserDataAccessObject;
+import data_access.QueryDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -18,6 +19,9 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.query.QueryController;
+import interface_adapter.query.QueryPresenter;
+import interface_adapter.query.QueryViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -30,13 +34,13 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.query.QueryInputBoundary;
+import use_case.query.QueryInteractor;
+import use_case.query.QueryOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
-import view.LoggedInView;
-import view.LoginView;
-import view.SignupView;
-import view.ViewManager;
+import view.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -60,12 +64,17 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
 
+    private final QueryDataAccessObject queryDao = new QueryDataAccessObject();
+
     private SignupView signupView;
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private QueryView queryView;
+    private QueryViewModel queryViewModel;
+    private QueryController queryController;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -99,8 +108,23 @@ public class AppBuilder {
      */
     public AppBuilder addLoggedInView() {
         loggedInViewModel = new LoggedInViewModel();
-        loggedInView = new LoggedInView(loggedInViewModel);
+        queryViewModel = new QueryViewModel();
+//        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, queryViewModel);
+        this.loggedInView = new LoggedInView(loggedInViewModel, queryViewModel);
+
         cardPanel.add(loggedInView, loggedInView.getViewName());
+        return this;
+
+    }
+
+    /**
+     * Adds the Query View to the application.
+     * @return this builder
+     */
+    public AppBuilder addQueryView() {
+        queryViewModel = new QueryViewModel();
+        this.queryView = new QueryView(queryViewModel);
+        cardPanel.add(queryView, queryView.getViewName());
         return this;
     }
 
@@ -125,7 +149,7 @@ public class AppBuilder {
      */
     public AppBuilder addLoginUseCase() {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
+                loggedInViewModel, loginViewModel, queryViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 
@@ -164,6 +188,20 @@ public class AppBuilder {
 
         final LogoutController logoutController = new LogoutController(logoutInteractor);
         loggedInView.setLogoutController(logoutController);
+        return this;
+    }
+
+    /**
+     * Adds the Query Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addQueryUseCase() {
+        final QueryOutputBoundary queryOutputBoundary = new QueryPresenter(viewManagerModel, queryViewModel);
+        final QueryInputBoundary queryInteractor = new QueryInteractor(queryOutputBoundary);
+
+        final QueryController queryController = new QueryController(queryInteractor, queryDao);
+        queryView.setQueryController(queryController);
+        loggedInView.setQueryController(queryController);
         return this;
     }
 
