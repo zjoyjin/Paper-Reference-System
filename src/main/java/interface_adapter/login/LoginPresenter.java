@@ -51,4 +51,10 @@ public class LoginPresenter implements LoginOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    @Override
+    public void switchToQueryView() {
+        viewManagerModel.setState("search");
+        viewManagerModel.firePropertyChanged();
+    }
+
 }

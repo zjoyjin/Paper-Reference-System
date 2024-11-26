@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import data_access.InMemoryUserDataAccessObject;
+import data_access.QueryDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -63,6 +64,8 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
 
+    private final QueryDataAccessObject queryDao = new QueryDataAccessObject();
+
     private SignupView signupView;
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
@@ -71,6 +74,7 @@ public class AppBuilder {
     private LoginView loginView;
     private QueryView queryView;
     private QueryViewModel queryViewModel;
+    private QueryController queryController;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -104,9 +108,12 @@ public class AppBuilder {
      */
     public AppBuilder addLoggedInView() {
         loggedInViewModel = new LoggedInViewModel();
-        loggedInView = new LoggedInView(loggedInViewModel);
+        queryViewModel = new QueryViewModel();
+//        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, queryViewModel);
+        this.loggedInView = new LoggedInView(loggedInViewModel, queryViewModel); // Assign to the field
         cardPanel.add(loggedInView, loggedInView.getViewName());
         return this;
+
     }
 
     /**
@@ -191,7 +198,7 @@ public class AppBuilder {
         final QueryOutputBoundary queryOutputBoundary = new QueryPresenter(viewManagerModel, queryViewModel);
         final QueryInputBoundary queryInteractor = new QueryInteractor(queryOutputBoundary);
 
-        final QueryController queryController = new QueryController(queryInteractor);
+        final QueryController queryController = new QueryController(queryInteractor, queryDao);
         queryView.setQueryController(queryController);
         return this;
     }

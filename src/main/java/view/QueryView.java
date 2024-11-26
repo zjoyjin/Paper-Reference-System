@@ -6,16 +6,13 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import interface_adapter.change_password.LoggedInState;
 import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.query.QueryController;
 import interface_adapter.query.QueryState;
@@ -29,14 +26,19 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
 
     private JPanel queryPanel = new JPanel();
     private JTextField queryField = new JTextField(15);
-    private JButton search;
+    private JButton search = new JButton("search");;
     private QueryController queryController;
 
     public QueryView(QueryViewModel queryViewModel) {
+        final JLabel title = new JLabel("Search Page");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        final LabelTextPanel searchInfo = new LabelTextPanel(
+                new JLabel(""), queryField);
+
         queryPanel.add(new JLabel("Enter topic:"));
         queryPanel.add(queryField);
-
-        search = new JButton("search");
+        queryPanel.add(search);
 
         search.addActionListener(
                 new ActionListener() {
@@ -45,6 +47,7 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
                             final QueryState currentState = queryViewModel.getState();
 
                             queryController.execute(currentState.getTopic());
+//                            queryController.switchToResultsView();
                         }
                     }
                 }
@@ -58,6 +61,25 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        //this is from loggedinView
+//        if (evt.getPropertyName().equals("state")) {
+//            final LoggedInState state = (LoggedInState) evt.getNewValue();
+//            username.setText(state.getUsername());
+//
+//            // Reset visibility of the password input field and error field
+//            passwordInputField.setVisible(false);
+//            passwordErrorField.setVisible(false);
+//
+//            // Reset visibility of the search input field
+//            searchInputField.setVisible(false);
+//
+//            revalidate();
+//            repaint();
+//        }
+//        else if (evt.getPropertyName().equals("password")) {
+//            final LoggedInState state = (LoggedInState) evt.getNewValue();
+//            JOptionPane.showMessageDialog(null, "password updated for " + state.getUsername());
+//        }
 
     }
 

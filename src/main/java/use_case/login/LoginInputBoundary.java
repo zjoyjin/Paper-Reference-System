@@ -15,4 +15,9 @@ public interface LoginInputBoundary {
      * Switch to sign up view.
      */
     void switchToSignupView();
+
+    /**
+     * Switch to query view.
+     */
+    void switchToQueryView();
 }
