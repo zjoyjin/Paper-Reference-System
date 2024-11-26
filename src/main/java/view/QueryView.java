@@ -61,6 +61,11 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        final QueryState state = (QueryState) evt.getNewValue();
+
+        // Trying to debug T-T
+        String newView = (String) evt.getNewValue();
+        System.out.println("Current View Changed: " + newView);
         //this is from loggedinView
 //        if (evt.getPropertyName().equals("state")) {
 //            final LoggedInState state = (LoggedInState) evt.getNewValue();

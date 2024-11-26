@@ -3,6 +3,8 @@ package view;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -104,6 +106,29 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             }
         });
 
+        searchInputField.getDocument().addDocumentListener(new DocumentListener() {
+            private void documentListenerHelper() {
+                final LoggedInState currentState = loggedInViewModel.getState();
+                currentState.setTopic(searchInputField.getText());
+                loggedInViewModel.setState(currentState);
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+        });
+
         changePassword.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
@@ -136,9 +161,19 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                         this.logoutController.execute(
                                 currentState.getUsername()
                         );
+                        revalidate();
+                        repaint();
                     }
                 }
         );
+
+        search.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                queryController.switchToQueryView();
+                System.out.println("HELP");
+            }
+        });
 
         search.addActionListener(
                 evt -> {
@@ -196,6 +231,12 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
+//            String newView = (String) evt.getNewValue();
+//            if ("search".equals(newView)) {
+//                System.out.println("Switching to search (QueryView)");
+//                switchToQueryView();
+//            }
+
             final LoggedInState state = (LoggedInState) evt.getNewValue();
             username.setText(state.getUsername());
 

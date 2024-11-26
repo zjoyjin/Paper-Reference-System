@@ -74,7 +74,6 @@ public class AppBuilder {
     private LoginView loginView;
     private QueryView queryView;
     private QueryViewModel queryViewModel;
-    private QueryController queryController;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -110,7 +109,7 @@ public class AppBuilder {
         loggedInViewModel = new LoggedInViewModel();
         queryViewModel = new QueryViewModel();
 //        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, queryViewModel);
-        this.loggedInView = new LoggedInView(loggedInViewModel, queryViewModel); // Assign to the field
+        this.loggedInView = new LoggedInView(loggedInViewModel, queryViewModel);
         cardPanel.add(loggedInView, loggedInView.getViewName());
         return this;
 
@@ -122,7 +121,7 @@ public class AppBuilder {
      */
     public AppBuilder addQueryView() {
         queryViewModel = new QueryViewModel();
-        queryView = new QueryView(queryViewModel);
+        this.queryView = new QueryView(queryViewModel);
         cardPanel.add(queryView, queryView.getViewName());
         return this;
     }
@@ -148,7 +147,7 @@ public class AppBuilder {
      */
     public AppBuilder addLoginUseCase() {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
+                loggedInViewModel, loginViewModel, queryViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 
