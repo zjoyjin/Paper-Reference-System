@@ -3,7 +3,7 @@ import com.cohere.api.Cohere;
 import com.cohere.api.requests.ChatRequest;
 import com.cohere.api.types.*;
 public class CohereSummary01 {
-    //check
+
     private static final String API_KEY = "2YU85SBd4B0DOUxLoCHRbbuagFRqzJWz7oeJx26u";
 
     public static String getSummary(String urlToSummarize) {
