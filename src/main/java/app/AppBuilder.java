@@ -200,6 +200,7 @@ public class AppBuilder {
 
         final QueryController queryController = new QueryController(queryInteractor, queryDao);
         queryView.setQueryController(queryController);
+        loggedInView.setQueryController(queryController);
         return this;
     }
 

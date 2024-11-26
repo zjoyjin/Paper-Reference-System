@@ -15,9 +15,9 @@ public class Main {
         final JFrame application = appBuilder
                                             .addLoginView()
                                             .addSignupView()
+                                            .addLoggedInView()
                                             .addQueryView()
                                             .addQueryUseCase()
-                                            .addLoggedInView()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
