@@ -67,10 +67,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         username = new JLabel();
 
-        final LabelTextPanel searchInfo = new LabelTextPanel(new JLabel(""), searchInputField);
-        // Hide search input field until change password button pressed
-        searchInputField.setVisible(false);
-
         final JPanel buttons = new JPanel();
         logOut = new JButton("Log Out");
         buttons.add(logOut);
@@ -78,7 +74,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         changePassword = new JButton("Change Password");
         buttons.add(changePassword);
 
-        search = new JButton("Search");
+        search = new JButton("Go to Search");
         buttons.add(search);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -168,55 +164,15 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-        search.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                queryController.switchToQueryView();
-                System.out.println("HELP");
-            }
-        });
-
         search.addActionListener(
                 evt -> {
-                    System.out.println("Search button clicked");
                     if (this.queryController != null) {
                         this.queryController.switchToQueryView();
-                        System.out.println("Switched to query view");
                     }
                     else {
                         System.err.println("QueryController is null!");
                     }
                 }
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent evt) {
-//                        loginController.switchToQueryView();
-//                    }
-//                }
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-//                evt -> {
-//                    if (evt.getSource().equals(search)) {
-//                        if (searchInputField.isVisible()) {
-//                            // Allow user to enter a research topic in search bar
-//                            String topic = searchInputField.getText().trim();
-//                            if (!topic.isEmpty()) {
-//                                queryController.execute(topic);
-//                                queryController.switchToResultsView();
-//                            }
-//                            else {
-//                                JOptionPane.showMessageDialog(
-//                                        this, "Please enter a valid search term");
-//                            }
-////                            final LoggedInState currentState = loggedInViewModel.getState();
-////                            this.queryController.execute(currentState.getTopic());
-//                        }
-//                        else {
-//                            // Make search input field and label visible again
-//                            searchInputField.setVisible(!searchInputField.isVisible());
-//                        }
-//                        revalidate();
-//                        repaint();
-//                    }
-//                }
         );
 
         this.add(title);
@@ -225,18 +181,12 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         this.add(passwordInfo);
         this.add(passwordErrorField);
-        this.add(searchInfo);
         this.add(buttons);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
-//            String newView = (String) evt.getNewValue();
-//            if ("search".equals(newView)) {
-//                System.out.println("Switching to search (QueryView)");
-//                switchToQueryView();
-//            }
 
             final LoggedInState state = (LoggedInState) evt.getNewValue();
             username.setText(state.getUsername());
