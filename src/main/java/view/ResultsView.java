@@ -81,18 +81,6 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         return g;
     }
 
-    //article creation logic here for now -- TODO: MOVE LATER!
-    public Set<Edge> createEdges(Set<Article> articles) {
-        Article[] articleList = articles.toArray(new Article[articles.size()]);
-        Set<Edge> edges = new HashSet<>();
-        for (int i = 0; i < articleList.length; i++) {
-            for (int j = i + 1; j < articleList.length; j++) {
-                if (articleList[i].hasReference(articleList[j])) {
-                    edges.add(new Edge(articleList[i], articleList[j]));
-                }
-            }
-        }
-        return edges;
     }
 
     @Override
