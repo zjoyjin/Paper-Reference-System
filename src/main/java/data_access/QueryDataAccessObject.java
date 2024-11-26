@@ -41,9 +41,10 @@ public class QueryDataAccessObject implements QueryDataAccessInterface {
     // TODO: -> Article Factory
 
 //    public QueryDataAccessObject(UserFactory userFactory) {
+    public QueryDataAccessObject() {
 //        this.articleFactory = userFactory;
 //        // No need to do anything to reinitialize a user list! The data is the cloud that may be miles away.
-//    }
+    }
 
     @Override
     public Set<Article> get(String sortType, String query) {
