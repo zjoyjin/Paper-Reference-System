@@ -98,7 +98,10 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         repaint();
     }
 
+    public String getViewName() { return viewName; }
 
+    public void setResultsController(ResultsController resultsController) {
+        this.resultsController = resultsController;
     }
 
 }
