@@ -18,6 +18,8 @@ public class Main {
                                             .addQueryView()
                                             .addQueryUseCase()
                                             .addLoggedInView()
+                                            .addQueryView()
+                                            .addQueryUseCase()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()

@@ -1,12 +1,9 @@
 package interface_adapter.query;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.change_password.LoggedInState;
-import interface_adapter.change_password.LoggedInViewModel;
-import interface_adapter.login.LoginViewModel;
-import use_case.login.LoginOutputBoundary;
 import use_case.query.QueryOutputBoundary;
-import use_case.query.QueryOutputBoundary;
+import use_case.query.QueryOutputData;
+import use_case.signup.SignupOutputData;
 
 /**
  * The Presenter for the Query Use Case.
@@ -22,6 +19,26 @@ public class QueryPresenter implements QueryOutputBoundary {
     }
 
     @Override
+    public void prepareSuccessView(QueryOutputData response) {
+        // On success, switch to the query view.
+        final QueryState queryState = queryViewModel.getState();
+        queryState.setTopic(response.getTopic());
+        this.queryViewModel.setState(queryState);
+        queryViewModel.firePropertyChanged();
+
+        // Tell View Manager to switch to QueryView.
+        viewManagerModel.setState(queryViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
+    }
+
+//    @Override
+//    public void prepareFailView(String error) {
+//        final QueryState queryState = queryViewModel.getState();
+//        queryState.setQueryError(error);
+//        queryViewModel.firePropertyChanged();
+//    }
+
+    @Override
     public void switchToResultsView() {
         viewManagerModel.setState("results");
         viewManagerModel.firePropertyChanged();
@@ -30,6 +47,8 @@ public class QueryPresenter implements QueryOutputBoundary {
     @Override
     public void switchToQueryView() {
         viewManagerModel.setState("search");
+        viewManagerModel.setState(queryViewModel.getViewName());
+
         viewManagerModel.firePropertyChanged();
     }
 }
