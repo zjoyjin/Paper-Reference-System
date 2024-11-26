@@ -25,6 +25,10 @@ import interface_adapter.query.QueryViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.results.ResultsController;
+import interface_adapter.results.ResultsPresenter;
+import interface_adapter.results.ResultsViewModel;
+
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -40,6 +44,10 @@ import use_case.query.QueryOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.results.ResultsInputBoundary;
+import use_case.results.ResultsInteractor;
+import use_case.results.ResultsOutputBoundary;
+
 import view.*;
 
 /**
@@ -75,6 +83,8 @@ public class AppBuilder {
     private QueryView queryView;
     private QueryViewModel queryViewModel;
     private QueryController queryController;
+    private ResultsView resultsView;
+    private ResultsViewModel resultsViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -127,6 +137,19 @@ public class AppBuilder {
         cardPanel.add(queryView, queryView.getViewName());
         return this;
     }
+
+    /**
+     * Adds the Query View to the application.
+     * @return this builder
+     */
+    public AppBuilder addResultsView() {
+        resultsViewModel = new ResultsViewModel();
+        this.resultsView = new ResultsView(resultsViewModel);
+        cardPanel.add(queryView, queryView.getViewName());
+        return this;
+    }
+
+//////////////////////////////////////////////////////////////////////////////
 
     /**
      * Adds the Signup Use Case to the application.
@@ -202,6 +225,19 @@ public class AppBuilder {
         final QueryController queryController = new QueryController(queryInteractor, queryDao);
         queryView.setQueryController(queryController);
         loggedInView.setQueryController(queryController);
+        return this;
+    }
+
+    /**
+     * Adds the Results Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addResultsUseCase() {
+        final ResultsOutputBoundary resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
+        final ResultsInputBoundary resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
+
+        final ResultsController resultsController = new ResultsController(resultsInteractor);
+        resultsView.setResultsController(resultsController);
         return this;
     }
 
