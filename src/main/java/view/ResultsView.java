@@ -34,10 +34,11 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     private final JFXPanel jfxPanel = new JFXPanel();
     Digraph<String, String> g = new DigraphEdgeList<>();
 
-    public ResultsView(QueryViewModel queryViewModel, Set<Article> articles, Set<Edge> edges) {
 
-        this.queryViewModel = queryViewModel;
-        this.queryViewModel.addPropertyChangeListener(this);
+    public ResultsView(ResultsViewModel resultsViewModel) {
+
+        this.resultsViewModel = resultsViewModel;
+        this.resultsViewModel.addPropertyChangeListener(this);
 
         // Set title
         final JLabel title = new JLabel("Results Screen");
@@ -45,6 +46,8 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
 
         // add javafx panel for the graph
         this.add(jfxPanel);
+    }
+
     private void populateGraph(Set<Article> articles, Set<Edge> edges) {
         for (Article a : articles) {
             g.insertVertex(a.getTitle());
@@ -106,3 +109,5 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     }
 
 }
+
+
