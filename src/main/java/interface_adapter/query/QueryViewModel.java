@@ -8,7 +8,7 @@ import interface_adapter.ViewModel;
 public class QueryViewModel extends ViewModel<QueryState> {
 
     public QueryViewModel() {
-        super("search");
+        super("query");
         setState(new QueryState());
     }
 
