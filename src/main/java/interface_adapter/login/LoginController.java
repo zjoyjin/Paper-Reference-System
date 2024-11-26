@@ -39,4 +39,5 @@ public class LoginController {
     public void switchToQueryView() {
         loginUseCaseInteractor.switchToQueryView();
     }
+
 }

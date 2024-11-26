@@ -74,6 +74,7 @@ public class AppBuilder {
     private LoginView loginView;
     private QueryView queryView;
     private QueryViewModel queryViewModel;
+    private QueryController queryController;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -110,6 +111,7 @@ public class AppBuilder {
         queryViewModel = new QueryViewModel();
 //        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, queryViewModel);
         this.loggedInView = new LoggedInView(loggedInViewModel, queryViewModel);
+
         cardPanel.add(loggedInView, loggedInView.getViewName());
         return this;
 
