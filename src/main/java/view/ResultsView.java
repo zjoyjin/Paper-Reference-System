@@ -53,8 +53,15 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         }
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        final ResultsState state = (ResultsState) evt.getNewValue();
+        final Set<Article> articles = state.getArticles();
+        final Set<Edge> edges = state.getEdges();
+        // if state = error...
+
         // Create the graph
-        Digraph<String, String> g = createGraph(articles, edges);
+        populateGraph(articles, edges);
 
         final SmartPlacementStrategy initialPlacement = new SmartRandomPlacementStrategy();
         final SmartGraphPanel<String, String> graphView = new SmartGraphPanel<>(g, initialPlacement);
@@ -77,31 +84,14 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         //IMPORTANT! - Called after scene is displayed, so we can initialize the graph visualization
         graphView.setAutomaticLayout(true);
         graphView.init();
-    }
 
-    private Digraph<String, String> createGraph(Set<Article> articles, Set<Edge> edges) {
-        Digraph<String, String> g = new DigraphEdgeList<>();
-        for (Article a : articles) {
-            g.insertVertex(a.getTitle());
-        }
-        for (Edge e : edges) {
-            g.insertEdge(e.getPaper().getTitle(), e.getReference().getTitle(), "");
-        }
-        return g;
-    }
+        // Reset visibility of the fields
 
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-/
+        revalidate();
+        repaint();
     }
 
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        final ResultsState state = (ResultsState) evt.getNewValue();
-        // if state = error...
     }
 
 }
