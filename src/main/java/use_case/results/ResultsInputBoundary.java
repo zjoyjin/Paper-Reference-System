@@ -1,5 +1,8 @@
 package use_case.results;
 
+/**
+ * Input Boundary for actions which are related to the results of a query.
+ */
 public interface ResultsInputBoundary {
 
     /**

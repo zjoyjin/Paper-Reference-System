@@ -6,6 +6,9 @@ import java.util.Set;
 import entity.Article;
 import entity.Edge;
 
+/**
+ * The Results Interactor.
+ */
 public class ResultsInteractor implements ResultsInputBoundary {
 
     private ResultsDataAccessInterface dataAccessInterface;
@@ -34,7 +37,7 @@ public class ResultsInteractor implements ResultsInputBoundary {
     }
 
     private Set<Edge> createEdges(Set<Article> articles) {
-        Set<Edge> edges = new HashSet<>();
+        final Set<Edge> edges = new HashSet<>();
         for (Article a : articles) {
             for (Article b : articles) {
                 if (a.hasReference(b)) {
