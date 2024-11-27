@@ -3,11 +3,9 @@ package interface_adapter.login;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
-import interface_adapter.query.QueryState;
 import interface_adapter.query.QueryViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
-import use_case.query.QueryOutputData;
 
 /**
  * The Presenter for the Login Use Case.
