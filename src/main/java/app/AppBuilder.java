@@ -1,6 +1,6 @@
 package app;
 
-import java.awt.CardLayout;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -87,9 +87,19 @@ public class AppBuilder {
     public AppBuilder addSignupView() {
         signupViewModel = new SignupViewModel();
         signupView = new SignupView(signupViewModel);
+
+//        cardPanel.setLayout(new BorderLayout());
+//        signupView.setBorder(null);
+
         cardPanel.add(signupView, signupView.getViewName());
+
+
+
+//        cardPanel.add(signupView, signupView.getViewName());
         return this;
     }
+
+
 
     /**
      * Adds the Login View to the application.
@@ -213,8 +223,10 @@ public class AppBuilder {
         final JFrame application = new JFrame("Login Example");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        application.add(cardPanel);
+        cardPanel.setBorder(null);
 
+        application.add(cardPanel, BorderLayout.CENTER);
+//        cardPanel.setLayout(new BorderLayout());
         viewManagerModel.setState(signupView.getViewName());
         viewManagerModel.firePropertyChanged();
 

@@ -69,8 +69,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
             }
         };
 
+        this.setLayout(new BorderLayout());
+
         signUpPanel.setLayout(new GridBagLayout()); // Use GridBagLayout for proportional scaling
-        this.add(signUpPanel);
+        this.add(signUpPanel, BorderLayout.CENTER);
 
         // Create reusable GridBagConstraints for layout
         final GridBagConstraints gbc = new GridBagConstraints();
@@ -79,6 +81,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.weightx = 1;
         gbc.weighty = 0;
+
+
 
         // Title Label
         title.setFont(new Font("Arial", Font.BOLD, 28));
@@ -184,6 +188,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         addUsernameListener();
         addPasswordListener();
         addRepeatPasswordListener();
+
 
     }
 

@@ -78,8 +78,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 g2d.fillRect(0, 0, getWidth(), getHeight());
             }
         };
-
+        this.setLayout(new BorderLayout());
         loginPanel.setLayout(new GridBagLayout()); // Use GridBagLayout for proportional scaling
+        this.add(loginPanel, BorderLayout.CENTER);
 
 
         GridBagConstraints gbc = new GridBagConstraints();
