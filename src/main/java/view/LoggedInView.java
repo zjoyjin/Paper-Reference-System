@@ -49,7 +49,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JTextField passwordInputField;
 
 
-    private final JTextField searchInputField = new JTextField(15);
+//    private final JTextField searchInputField = new JTextField(15);
 
 
     public LoggedInView(LoggedInViewModel loggedInViewModel, QueryViewModel queryViewModel) {
@@ -190,28 +190,28 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             }
         });
 
-        searchInputField.getDocument().addDocumentListener(new DocumentListener() {
-            private void documentListenerHelper() {
-                final LoggedInState currentState = loggedInViewModel.getState();
-                currentState.setTopic(searchInputField.getText());
-                loggedInViewModel.setState(currentState);
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-        });
+//        searchInputField.getDocument().addDocumentListener(new DocumentListener() {
+//            private void documentListenerHelper() {
+//                final LoggedInState currentState = loggedInViewModel.getState();
+//                currentState.setTopic(searchInputField.getText());
+//                loggedInViewModel.setState(currentState);
+//            }
+//
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//                documentListenerHelper();
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//                documentListenerHelper();
+//            }
+//
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//                documentListenerHelper();
+//            }
+//        });
 
         changePassword.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -284,7 +284,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             passwordErrorField.setVisible(false);
 
             // Reset visibility of the search input field
-            searchInputField.setVisible(false);
+//
+
 
             revalidate();
             repaint();
