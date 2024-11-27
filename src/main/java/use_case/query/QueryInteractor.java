@@ -1,8 +1,5 @@
 package use_case.query;
 
-import entity.User;
-import use_case.query.*;
-
 /**
  * The Query Interactor.
  */
