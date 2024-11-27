@@ -147,7 +147,7 @@ public class AppBuilder {
     public AppBuilder addResultsView() {
         resultsViewModel = new ResultsViewModel();
         this.resultsView = new ResultsView(resultsViewModel);
-        cardPanel.add(queryView, queryView.getViewName());
+        cardPanel.add(resultsView, resultsView.getViewName());
         return this;
     }
 
