@@ -56,8 +56,8 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
                 evt -> {
                     if (evt.getSource().equals(search)) {
                         final QueryState currentState = queryViewModel.getState();
-
-                        this.queryController.execute(
+                        currentState.setTopic(queryInputField.getText());
+                        this.resultsController.execute(
                                 currentState.getTopic()
                         );
                     }
