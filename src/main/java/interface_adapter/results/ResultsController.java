@@ -23,10 +23,10 @@ public class ResultsController {
         resultsUseCaseInteractor.execute(resultsInputData);
     }
 
-    /**
-     * Executes the "switch to QueryView" Use Case.
-     */
-    public void switchToQueryView() {
-        resultsUseCaseInteractor.switchToQueryView();
-    }
+//    /**
+//     * Executes the "switch to QueryView" Use Case.
+//     */
+//    public void switchToQueryView() {
+//        resultsUseCaseInteractor.switchToQueryView();
+//    }
 }

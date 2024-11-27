@@ -88,6 +88,10 @@ public class AppBuilder {
     private ResultsView resultsView;
     private ResultsViewModel resultsViewModel;
 
+    private ResultsController resultsController;
+    private ResultsOutputBoundary resultsOutputBoundary;
+    private ResultsInputBoundary resultsInteractor;
+
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
@@ -149,6 +153,7 @@ public class AppBuilder {
         this.resultsView = new ResultsView(resultsViewModel);
         cardPanel.add(resultsView, resultsView.getViewName());
         return this;
+
     }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -221,19 +226,21 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addQueryUseCase() {
-        resultsViewModel = new ResultsViewModel();
+        // resultsViewModel = new ResultsViewModel();
         final QueryOutputBoundary queryOutputBoundary = new QueryPresenter(viewManagerModel, queryViewModel);
         final QueryInputBoundary queryInteractor = new QueryInteractor(queryOutputBoundary);
 
         final QueryController queryController = new QueryController(queryInteractor, queryDao);
         queryView.setQueryController(queryController);
+        loggedInView.setQueryController(queryController);
 
-        final ResultsOutputBoundary resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
-        final ResultsInputBoundary resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
 
-        final ResultsController resultsController = new ResultsController(resultsInteractor);
+//        resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
+//        resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
+//
+//        resultsController = new ResultsController(resultsInteractor);
         queryView.setResultsController(resultsController);
-        loggedInView.setResultsController(resultsController);
+
         return this;
     }
 
@@ -243,12 +250,19 @@ public class AppBuilder {
      */
     public AppBuilder addResultsUseCase() {
         //resultsViewModel = new ResultsViewModel();
-        // alr init in queryViewModel
+        // alr init in queryViewModel  (switched to resultsView)
 
-        final ResultsOutputBoundary resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
-        final ResultsInputBoundary resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
+//        final ResultsOutputBoundary resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
+//        final ResultsInputBoundary resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
+//
+//        final ResultsController resultsController = new ResultsController(resultsInteractor);
+//
+        resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
+        resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
 
-        final ResultsController resultsController = new ResultsController(resultsInteractor);
+        resultsController = new ResultsController(resultsInteractor);
+
+
         resultsView.setResultsController(resultsController);
         return this;
     }

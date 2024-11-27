@@ -16,14 +16,15 @@ public class Main {
                                             .addLoginView()
                                             .addSignupView()
                                             .addLoggedInView()
+                .addResultsView()
+                .addResultsUseCase()
                                             .addQueryView()
                                             .addQueryUseCase()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
-                                            .addResultsView()
-                                            .addResultsUseCase()
+
                                             .build();
 
         application.pack();

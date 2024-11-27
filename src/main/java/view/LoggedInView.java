@@ -168,8 +168,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         search.addActionListener(
                 evt -> {
-                    if (this.resultsController != null) {
-                        this.resultsController.switchToQueryView();
+                    if (this.queryController != null) {
+                        this.queryController.switchToQueryView();
                     }
                     else {
                         System.err.println("ReultsController is null!");
