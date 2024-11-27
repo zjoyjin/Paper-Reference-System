@@ -8,6 +8,7 @@ import javax.swing.WindowConstants;
 
 import data_access.InMemoryUserDataAccessObject;
 import data_access.QueryDataAccessObject;
+import data_access.TestDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -41,6 +42,7 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.query.QueryInputBoundary;
 import use_case.query.QueryInteractor;
 import use_case.query.QueryOutputBoundary;
+import use_case.results.ResultsDataAccessInterface;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -72,7 +74,7 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
 
-    private final QueryDataAccessObject queryDao = new QueryDataAccessObject();
+    private final ResultsDataAccessInterface queryDao = new TestDataAccessObject();
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -219,6 +221,7 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addQueryUseCase() {
+        resultsViewModel = new ResultsViewModel();
         final QueryOutputBoundary queryOutputBoundary = new QueryPresenter(viewManagerModel, queryViewModel);
         final QueryInputBoundary queryInteractor = new QueryInteractor(queryOutputBoundary);
 
@@ -239,6 +242,9 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addResultsUseCase() {
+        //resultsViewModel = new ResultsViewModel();
+        // alr init in queryViewModel
+
         final ResultsOutputBoundary resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
         final ResultsInputBoundary resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
 
