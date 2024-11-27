@@ -35,11 +35,10 @@ public class ResultsInteractor implements ResultsInputBoundary {
 
     private Set<Edge> createEdges(Set<Article> articles) {
         Set<Edge> edges = new HashSet<>();
-        Article[] articlesList = articles.toArray(new Article[articles.size()]);
-        for (int a = 0; a < articles.size(); a++) {
-            for (int b = a + 1; b < articles.size(); b++) {
-                if (articlesList[a].hasReference(articlesList[b])) {
-                    edges.add(new Edge(articlesList[a], articlesList[b]));
+        for (Article a : articles) {
+            for (Article b : articles) {
+                if (a.hasReference(b)) {
+                    edges.add(new Edge(a, b));
                 }
             }
         }
