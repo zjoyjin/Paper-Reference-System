@@ -8,7 +8,7 @@ import interface_adapter.ViewModel;
 public class ResultsViewModel extends ViewModel<ResultsState> {
 
     public ResultsViewModel() {
-        super("Results");
+        super("results");
         setState(new ResultsState());
 
     }

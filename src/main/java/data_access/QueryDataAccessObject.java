@@ -12,11 +12,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import use_case.query.QueryDataAccessInterface;
+import use_case.results.ResultsDataAccessInterface;
 
 /**
  * The DAO for user data.
  */
-public class QueryDataAccessObject implements QueryDataAccessInterface {
+public class QueryDataAccessObject implements QueryDataAccessInterface, ResultsDataAccessInterface {
     //        LoginUserDataAccessInterface,
 //        ChangePasswordUserDataAccessInterface,
 //        LogoutUserDataAccessInterface {
@@ -37,17 +38,16 @@ public class QueryDataAccessObject implements QueryDataAccessInterface {
     private static final String REFERENCE = "reference";
 
     private static final int NUM_OUTPUTS = 10;
-    // private final UserFactory articleFactory;
-    // TODO: -> Article Factory
 
-//    public QueryDataAccessObject(UserFactory userFactory) {
+    private Set<Article> articles = new HashSet<>();
+
+    public QueryDataAccessObject() {
 //        this.articleFactory = userFactory;
 //        // No need to do anything to reinitialize a user list! The data is the cloud that may be miles away.
-//    }
+    }
 
     @Override
     public Set<Article> get(String sortType, String query) {
-        Set<Article> articles = new HashSet<>();
 
         // format query for insertion into API request
         final String urlQuery = query.replaceAll(" +", "+");
@@ -103,11 +103,11 @@ public class QueryDataAccessObject implements QueryDataAccessInterface {
 
                         // System.out.println(title + "\n" + authors[0] + "\n" + date.toString());
                         // NOTE: use articleFactory?
-                        articles.add(new Article(doi, title, authors, date.toString(), references));
+                        this.articles.add(new Article(doi, title, authors, date.toString(), references));
                     }
                     i++;
                 }
-                return articles;
+                return this.articles;
             }
             // if there's an error code, return the error message:
             else {

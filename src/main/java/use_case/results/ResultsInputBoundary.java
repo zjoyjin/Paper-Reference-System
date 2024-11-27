@@ -8,5 +8,8 @@ public interface ResultsInputBoundary {
      */
     void execute(ResultsInputData resultsInputData);
 
-    // void switchToQueryView();
+    /**
+     * Switch to query page view.
+     */
+    void switchToQueryView();
 }

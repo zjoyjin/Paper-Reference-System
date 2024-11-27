@@ -22,7 +22,19 @@ public class ResultsPresenter implements ResultsOutputBoundary {
         resultsState.setArticles(outputData.getArticles());
         resultsState.setEdges(outputData.getEdges());
 
+        resultsViewModel.setState(resultsState);
         resultsViewModel.firePropertyChanged();
+
+        viewManagerModel.setState(resultsViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToQueryView() {
+        viewManagerModel.setState("query");
+//        viewManagerModel.setState(queryViewModel.getViewName());
+
+        viewManagerModel.firePropertyChanged();
     }
 
 }

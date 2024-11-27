@@ -19,6 +19,7 @@ import interface_adapter.logout.LogoutController;
 import interface_adapter.query.QueryController;
 import interface_adapter.query.QueryState;
 import interface_adapter.query.QueryViewModel;
+import interface_adapter.results.ResultsController;
 
 /**
  * The View for when the user is entering a research topic in the program.
@@ -28,6 +29,8 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
 
     private final QueryViewModel queryViewModel;
     private QueryController queryController;
+
+    private ResultsController resultsController;
 
     private final JTextField queryInputField = new JTextField(15);
     private final JButton search;
@@ -49,15 +52,25 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         search.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(search)) {
-                            final QueryState currentState = queryViewModel.getState();
-
-                            queryController.execute(currentState.getTopic());
-                        }
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(search)) {
+                        final QueryState currentState = queryViewModel.getState();
+                        currentState.setTopic(queryInputField.getText());
+                        this.resultsController.execute(
+                                currentState.getTopic()
+                        );
                     }
                 }
+//                new ActionListener() {
+//                    public void actionPerformed(ActionEvent evt) {
+//                        if (evt.getSource().equals(search)) {
+//                            final QueryState currentState = queryViewModel.getState();
+//
+//                            this.queryController.execute(currentState.getTopic());
+//                        }
+//                    }
+//                }
         );
         this.add(title);
         this.add(searchInfo);
@@ -87,4 +100,7 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         this.queryController = queryController;
     }
 
+    public void setResultsController(ResultsController resultsController) {
+        this.resultsController = resultsController;
+    }
 }

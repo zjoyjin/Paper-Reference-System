@@ -15,8 +15,9 @@ import java.util.Set;
 import java.util.StringJoiner;
 
 import use_case.query.QueryDataAccessInterface;
+import use_case.results.ResultsDataAccessInterface;
 
-public class TestDataAccessObject implements QueryDataAccessInterface {
+public class TestDataAccessObject implements QueryDataAccessInterface, ResultsDataAccessInterface {
     private static final String SUCCESS_CODE = "ok";
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";

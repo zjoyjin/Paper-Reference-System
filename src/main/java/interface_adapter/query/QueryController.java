@@ -4,17 +4,20 @@ import use_case.login.LoginInputData;
 import data_access.QueryDataAccessObject;
 import entity.Article;
 import java.util.Set;
+
+import use_case.query.QueryDataAccessInterface;
 import use_case.query.QueryInputBoundary;
 import use_case.query.QueryInputData;
+import use_case.results.ResultsDataAccessInterface;
 
 /**
  * The controller for the Query Use Case.
  */
 public class QueryController {
     private final QueryInputBoundary queryUseCaseInteractor;
-    private final QueryDataAccessObject queryDao;
+    private final ResultsDataAccessInterface queryDao;
 
-    public QueryController(QueryInputBoundary queryUseCaseInteractor, QueryDataAccessObject queryDao) {
+    public QueryController(QueryInputBoundary queryUseCaseInteractor, ResultsDataAccessInterface queryDao) {
         this.queryUseCaseInteractor = queryUseCaseInteractor;
         this.queryDao = queryDao;
     }
