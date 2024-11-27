@@ -225,6 +225,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                                     currentState.getUsername(),
                                     currentState.getPassword()
                             );
+                            passwordInputField.setVisible(false);
                         }
                         else {
                             // Make password input & password error field visible again
