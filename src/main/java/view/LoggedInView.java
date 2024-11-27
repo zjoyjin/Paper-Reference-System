@@ -25,6 +25,7 @@ import interface_adapter.logout.LogoutController;
 import interface_adapter.login.LoginController;
 import interface_adapter.query.QueryController;
 import interface_adapter.query.QueryViewModel;
+import interface_adapter.results.ResultsController;
 
 /**
  * The View for when the user is logged into the program.
@@ -39,6 +40,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private LogoutController logoutController;
     private LoginController loginController;
     private QueryController queryController;
+    private ResultsController resultsController;
 
     private final JLabel username;
 
@@ -166,11 +168,11 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         search.addActionListener(
                 evt -> {
-                    if (this.queryController != null) {
-                        this.queryController.switchToQueryView();
+                    if (this.resultsController != null) {
+                        this.resultsController.switchToQueryView();
                     }
                     else {
-                        System.err.println("QueryController is null!");
+                        System.err.println("ReultsController is null!");
                     }
                 }
         );
@@ -226,5 +228,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setQueryController(QueryController queryController) {
         this.queryController = queryController;
+    }
+
+    public void setResultsController(ResultsController resultsController) {
+        this.resultsController = resultsController;
     }
 }

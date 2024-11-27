@@ -28,6 +28,11 @@ public class ResultsInteractor implements ResultsInputBoundary {
         resultsPresenter.prepareSuccessView(outputData);
     }
 
+    @Override
+    public void switchToQueryView() {
+        resultsPresenter.switchToQueryView();
+    }
+
     private Set<Edge> createEdges(Set<Article> articles) {
         Set<Edge> edges = new HashSet<>();
         Article[] articlesList = articles.toArray(new Article[articles.size()]);

@@ -10,4 +10,9 @@ public interface ResultsOutputBoundary {
      * @param outputData the output data
      */
     void prepareSuccessView(ResultsOutputData outputData);
+
+    /**
+     * Switches to the Query View.
+     */
+    void switchToQueryView();
 }

@@ -25,4 +25,12 @@ public class ResultsPresenter implements ResultsOutputBoundary {
         resultsViewModel.firePropertyChanged();
     }
 
+    @Override
+    public void switchToQueryView() {
+        viewManagerModel.setState("query");
+//        viewManagerModel.setState(queryViewModel.getViewName());
+
+        viewManagerModel.firePropertyChanged();
+    }
+
 }

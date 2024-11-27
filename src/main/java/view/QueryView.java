@@ -19,6 +19,7 @@ import interface_adapter.logout.LogoutController;
 import interface_adapter.query.QueryController;
 import interface_adapter.query.QueryState;
 import interface_adapter.query.QueryViewModel;
+import interface_adapter.results.ResultsController;
 
 /**
  * The View for when the user is entering a research topic in the program.
@@ -28,6 +29,8 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
 
     private final QueryViewModel queryViewModel;
     private QueryController queryController;
+
+    private ResultsController resultsController;
 
     private final JTextField queryInputField = new JTextField(15);
     private final JButton search;
@@ -87,4 +90,7 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         this.queryController = queryController;
     }
 
+    public void setResultsController(ResultsController resultsController) {
+        this.resultsController = resultsController;
+    }
 }
