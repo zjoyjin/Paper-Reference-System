@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import com.brunomnsilva.smartgraph.graph.Digraph;
 import com.brunomnsilva.smartgraph.graph.DigraphEdgeList;
+import com.brunomnsilva.smartgraph.graphview.SmartCircularSortedPlacementStrategy;
 import com.brunomnsilva.smartgraph.graphview.SmartGraphPanel;
 import com.brunomnsilva.smartgraph.graphview.SmartPlacementStrategy;
 import com.brunomnsilva.smartgraph.graphview.SmartRandomPlacementStrategy;
@@ -31,8 +32,14 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     private final String viewName = "results";
     private ResultsController resultsController;
 
+    Set<Article> articles = new HashSet<>();
+    Set<Edge> edges = new HashSet<>();
+
     private final JFXPanel jfxPanel = new JFXPanel();
     Digraph<String, String> g = new DigraphEdgeList<>();
+    SmartPlacementStrategy initialPlacement = new SmartRandomPlacementStrategy();
+    SmartGraphPanel<String, String> graphView = new SmartGraphPanel<>(g, initialPlacement);
+
 
 
     public ResultsView(ResultsViewModel resultsViewModel) {
@@ -44,16 +51,31 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         final JLabel title = new JLabel("Results Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        /////////////////////
+        this.setPreferredSize(new Dimension(800, 600));
+        ////////////
+
         // add javafx panel for the graph
         this.add(jfxPanel);
+        this.add(title);
     }
 
     private void populateGraph(Set<Article> articles, Set<Edge> edges) {
         for (Article a : articles) {
-            g.insertVertex(a.getTitle());
+            try {
+                g.insertVertex(a.getDoi());
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
+        int counter = 0;
         for (Edge e : edges) {
-            g.insertEdge(e.getPaper().getTitle(), e.getReference().getTitle(), "");
+            try {
+                g.insertEdge(e.getPaper().getDoi(), e.getReference().getDoi(), Integer.toString(counter));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            counter++;
         }
     }
 
@@ -67,34 +89,39 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final ResultsState state = (ResultsState) evt.getNewValue();
-        final Set<Article> articles = state.getArticles();
-        final Set<Edge> edges = state.getEdges();
+        articles = state.getArticles();
+        edges = state.getEdges();
         // if state = error...
 
         // Create the graph
         populateGraph(articles, edges);
 
-        final SmartPlacementStrategy initialPlacement = new SmartRandomPlacementStrategy();
-        final SmartGraphPanel<String, String> graphView = new SmartGraphPanel<>(g, initialPlacement);
+        /////////////////////////////////
+        initialPlacement = new SmartCircularSortedPlacementStrategy();
+        graphView = new SmartGraphPanel<>(g, initialPlacement);
 
-        // add node clicking handler
-        graphView.setVertexDoubleClickAction(graphVertex -> {
-            for (Article a : articles) {
-                if (a.getTitle().equals(graphVertex.getUnderlyingVertex().element())) {
-                    System.out.println("Vertex has DOI: " + a.getDoi());
-                }
-            }
-
-        });
 
         // add graph to javafx panel
 
-        Scene scene = new Scene(graphView, 1024, 768);
+        Scene scene = new Scene(graphView, 800, 600);
         jfxPanel.setScene(scene);
 
         //IMPORTANT! - Called after scene is displayed, so we can initialize the graph visualization
         graphView.setAutomaticLayout(true);
         graphView.init();
+
+        // add node clicking handler
+        graphView.setVertexDoubleClickAction(graphVertex -> {
+            System.out.println("Vertex double-clicked!");
+            for (Article a : articles) {
+                if (a.getDoi().equals(graphVertex.getUnderlyingVertex().element())) {
+                    System.out.println("Vertex has DOI: " + a.getDoi());
+                }
+            }
+
+        });
+        ///////////////////////////////////////////
+
 
         // Reset visibility of the fields
 
