@@ -222,9 +222,9 @@ public class AppBuilder {
         final QueryOutputBoundary queryOutputBoundary = new QueryPresenter(viewManagerModel, queryViewModel);
         final QueryInputBoundary queryInteractor = new QueryInteractor(queryOutputBoundary);
 
-//        final QueryController queryController = new QueryController(queryInteractor, queryDao);
-//        queryView.setQueryController(queryController);
-//        loggedInView.setQueryController(queryController);
+        final QueryController queryController = new QueryController(queryInteractor, queryDao);
+        queryView.setQueryController(queryController);
+
         final ResultsOutputBoundary resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
         final ResultsInputBoundary resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
 

@@ -52,15 +52,25 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         search.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(search)) {
-                            final QueryState currentState = queryViewModel.getState();
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(search)) {
+                        final QueryState currentState = queryViewModel.getState();
 
-                            queryController.execute(currentState.getTopic());
-                        }
+                        this.queryController.execute(
+                                currentState.getTopic()
+                        );
                     }
                 }
+//                new ActionListener() {
+//                    public void actionPerformed(ActionEvent evt) {
+//                        if (evt.getSource().equals(search)) {
+//                            final QueryState currentState = queryViewModel.getState();
+//
+//                            this.queryController.execute(currentState.getTopic());
+//                        }
+//                    }
+//                }
         );
         this.add(title);
         this.add(searchInfo);
