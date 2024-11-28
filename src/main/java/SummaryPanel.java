@@ -10,7 +10,7 @@ public class SummaryPanel extends JPanel {
     private final JLabel authorsLabel;
     private final JLabel publicationLabel;
     private final JTextArea summaryTextArea;
-    //201
+    
     // initialize the panel aitcle details and the summary
     public SummaryPanel(String title, Set<String> authors, String publication, String summary) {
         // Set up the layout for the panel
