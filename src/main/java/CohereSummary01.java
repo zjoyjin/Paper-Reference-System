@@ -1,4 +1,5 @@
 import com.cohere.api.Cohere;
+import com.cohere.api.core.CohereApiError;
 import com.cohere.api.requests.ChatRequest;
 import com.cohere.api.types.*;
 public class CohereSummary01 {
@@ -6,17 +7,23 @@ public class CohereSummary01 {
 
     public static String getSummary(String urlToSummarize) {
         Cohere cohere = Cohere.builder().token(API_KEY).clientName("snippet").build();
-        NonStreamedChatResponse response = cohere.chat(
-                ChatRequest.builder()
-                        .message("I have a URL, and I would like a detailed summary of its content. "
-                                + "Please analyze the article at the following link: "
-                                + urlToSummarize
-                                + ". Focus on summarizing the main points, key details, and any notable insights provided.").build());
+        try {
+            NonStreamedChatResponse response = cohere.chat(
+                    ChatRequest.builder()
+                            .message("I have a URL, and I would like a detailed summary of its content. "
+                                    + "Please analyze the article at the following link: "
+                                    + urlToSummarize
+                                    + ". Focus on summarizing the main points, key details, and any notable insights provided.").build());
+            String fullSummary = response.getText();
+            System.out.println("Full Summary: " + fullSummary);
+            return fullSummary;
+        } catch (CohereApiError e) {
+            System.err.println("Cohere API Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected Error: " + e.getMessage());
+        }
+        return "Error in summarizing content.";
 
-        String fullSummary = response.getText();
-        System.out.println("Full Summary: " + fullSummary); // Get the full summary from the API response
-
-        return fullSummary;
     }
 
     public static void main(String[] args) {
