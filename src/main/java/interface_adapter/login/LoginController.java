@@ -33,4 +33,11 @@ public class LoginController {
         loginUseCaseInteractor.switchToSignupView();
     }
 
+    /**
+     * Executes the "switch to QueryView" Use Case.
+     */
+    public void switchToQueryView() {
+        loginUseCaseInteractor.switchToQueryView();
+    }
+
 }

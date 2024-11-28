@@ -3,10 +3,11 @@ package interface_adapter.login;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
-import interface_adapter.signup.SignupState;
-import interface_adapter.signup.SignupViewModel;
+import interface_adapter.query.QueryState;
+import interface_adapter.query.QueryViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
+import use_case.query.QueryOutputData;
 
 /**
  * The Presenter for the Login Use Case.
@@ -16,13 +17,15 @@ public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewModel loginViewModel;
     private final LoggedInViewModel loggedInViewModel;
     private final ViewManagerModel viewManagerModel;
+    private final QueryViewModel queryViewModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
                           LoggedInViewModel loggedInViewModel,
-                          LoginViewModel loginViewModel) {
+                          LoginViewModel loginViewModel, QueryViewModel queryViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loggedInViewModel = loggedInViewModel;
         this.loginViewModel = loginViewModel;
+        this.queryViewModel = queryViewModel;
     }
 
     @Override
@@ -48,6 +51,12 @@ public class LoginPresenter implements LoginOutputBoundary {
     @Override
     public void switchToSignupView() {
         viewManagerModel.setState("sign up");
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToQueryView() {
+        viewManagerModel.setState("search");
         viewManagerModel.firePropertyChanged();
     }
 
