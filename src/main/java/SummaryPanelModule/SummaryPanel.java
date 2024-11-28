@@ -24,7 +24,7 @@ public class SummaryPanel extends JPanel {
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Authors
-        String authorsText = "Authors: " + String.join(", ", authors);
+        final String authorsText = "Authors: " + String.join(", ", authors);
         authorsLabel = new JLabel(authorsText);
         authorsLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         authorsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -36,12 +36,12 @@ public class SummaryPanel extends JPanel {
 
         // Summary (scrollable)
         summaryTextArea = new JTextArea(10, 30);
-        String summary = CohereSummary01.getSummary(URL);
+        final String summary = CohereSummary01.getSummary(URL);
         summaryTextArea.setText(summary);
         summaryTextArea.setWrapStyleWord(true);
         summaryTextArea.setLineWrap(true);
         summaryTextArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(summaryTextArea);
+        final JScrollPane scrollPane = new JScrollPane(summaryTextArea);
         scrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Add components to the panel
@@ -64,8 +64,8 @@ public class SummaryPanel extends JPanel {
         String summary = CohereSummary01.getSummary(urlToSummarize);  // Call the CohereSummary API to get the summary
 
         // Set metadata to the GUI components
-        JFrame frame = new JFrame("Article Summary");
-        SummaryPanel panel = new SummaryPanel(article.getTitle(), Set.of(article.getAuthors()), article.getPublication(), summary);
+        final JFrame frame = new JFrame("Article Summary");
+        final SummaryPanel panel = new SummaryPanel(article.getTitle(), Set.of(article.getAuthors()), article.getPublication(), summary);
 
         // Set up the frame to display the panel
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
