@@ -53,15 +53,19 @@ public class SummaryPanel extends JPanel {
 
     public static void main(String[] args) {
         // Create Article
-        String[] authors = {"Author A", "Author B"}; //replace this later
-        String publicationYear = "2022"; //replace this with article.getpublication year
-        Article article = new Article("1234.5678", "Sample Article Title", authors, publicationYear, new HashSet<>());
+        // replace this later
+        final String[] authors = {"Author A", "Author B"};
+        // replace this with article.getpublication year
+        final String publicationYear = "2022";
+        final Article article = new Article("1234.5678", "Sample Article Title", authors, publicationYear, new HashSet<>());
 
         // Use the link
-//        String urlToSummarize = "https://www.scienceabc.com/nature/bananas-change-colour-upon-ripening.html";//article.getLink();
-        String urlToSummarize = "https://doi.org/10.1016/j.gendis.2022.02.020";
+//      String urlToSummarize =
+//                             "https://www.scienceabc.com/nature/bananas-change-colour-upon-ripening.html";//article.getLink();
+        final String urlToSummarize = "https://doi.org/10.1016/j.gendis.2022.02.020";
         // CohereSummary
-        String summary = CohereSummary01.getSummary(urlToSummarize);  // Call the CohereSummary API to get the summary
+        // Call the CohereSummary API to get the summary
+        final String summary = CohereSummary01.getSummary(urlToSummarize);
 
         // Set metadata to the GUI components
         final JFrame frame = new JFrame("Article Summary");
