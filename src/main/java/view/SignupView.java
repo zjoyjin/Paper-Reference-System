@@ -1,13 +1,17 @@
 package view;
 
-import interface_adapter.signup.SignupController;
-import interface_adapter.signup.SignupState;
-import interface_adapter.signup.SignupViewModel;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.LinearGradientPaint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,11 +19,53 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupState;
+import interface_adapter.signup.SignupViewModel;
 
 /**
  * The View for the Signup Use Case.
  */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
+    // Colours
+    private static final int LIGHTBLUER = 173;
+    private static final int LIGHTBLUEG = 216;
+    private static final int LIGHTBLUEB = 230;
+    private static final int LIGHTGREENR = 144;
+    private static final int LIGHTGREENG = 238;
+    private static final int LIGHTGREENB = 144;
+    private static final int LIGHTPURPLER = 216;
+    private static final int LIGHTPURPLEG = 191;
+    private static final int LIGHTPURPLEB = 216;
+    private static final int LIGHTPINKR = 255;
+    private static final int LIGHTPINKG = 182;
+    private static final int LIGHTPINKB = 193;
+    private static final int LIGHTORANGER = 255;
+    private static final int LIGHTORANGEG = 228;
+    private static final int LIGHTORANGEB = 181;
+    private static final int LIGHTBLUEBUTTONR = 135;
+    private static final int LIGHTBLUEBUTTONG = 206;
+    private static final int LIGHTBLUEBUTTONB = 250;
+    private static final int LIGHTBLUELINKR = 0;
+    private static final int LIGHTBLUELINKG = 102;
+    private static final int LIGHTBLUELINKB = 204;
+    private static final int TOP = 10;
+    private static final int LEFT = 10;
+    private static final int BOTTOM = 10;
+    private static final int RIGHT = 10;
+    private static final int SIZE = 28;
+    private static final int WIDTH = 150;
+    private static final int HEIGHT = 30;
+
     private final String viewName = "sign up";
 
     private final SignupViewModel signupViewModel;
@@ -29,10 +75,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private SignupController signupController;
 
     private final JButton signUp;
-//    private final JButton cancel;
-//    private final JButton toLogin;
-
-
+    //    private final JButton cancel;
+    //    private final JButton toLogin;
 
     public SignupView(SignupViewModel signupViewModel) {
         this.signupViewModel = signupViewModel;
@@ -49,13 +93,13 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 final Graphics2D g2d = (Graphics2D) g;
 
                 // Define lighter tones of the colors for the gradient
+                // Light Blue, Light Green, Light Purple, Light Pink, Light Orange
                 final Color[] colors = {
-                    new Color(173, 216, 230), // Light Blue
-                    new Color(144, 238, 144), // Light Green
-                    new Color(216, 191, 216), // Light Purple
-                    new Color(255, 182, 193), // Light Pink
-                    new Color(255, 228, 181)  // Light Orange
-                };
+                    new Color(LIGHTBLUER, LIGHTBLUEG, LIGHTBLUEB),
+                    new Color(LIGHTGREENR, LIGHTGREENG, LIGHTGREENB),
+                    new Color(LIGHTPURPLER, LIGHTPURPLEG, LIGHTPURPLEB),
+                    new Color(LIGHTPINKR, LIGHTPINKG, LIGHTPINKB),
+                    new Color(LIGHTORANGER, LIGHTORANGEG, LIGHTORANGEB)};
 
                 final float[] fractions = {0.0f, 0.25f, 0.5f, 0.75f, 1.0f};
 
@@ -71,29 +115,30 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         this.setLayout(new BorderLayout());
 
-        signUpPanel.setLayout(new GridBagLayout()); // Use GridBagLayout for proportional scaling
+        // Use GridBagLayout for proportional scaling
+        signUpPanel.setLayout(new GridBagLayout());
         this.add(signUpPanel, BorderLayout.CENTER);
 
         // Create reusable GridBagConstraints for layout
         final GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(TOP, LEFT, BOTTOM, RIGHT);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.weightx = 1;
         gbc.weighty = 0;
 
-
-
         // Title Label
-        title.setFont(new Font("Arial", Font.BOLD, 28));
+        title.setFont(new Font("Arial", Font.BOLD, SIZE));
         title.setForeground(Color.DARK_GRAY);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2; // Center across two columns
+        // Center across two columns
+        gbc.gridwidth = 2;
         signUpPanel.add(title, gbc);
 
         // Username Label and TextField
-        gbc.gridwidth = 1; // Reset grid width
+        // Reset grid width
+        gbc.gridwidth = 1;
         gbc.gridy++;
         gbc.gridx = 0;
         final JLabel usernameLabel = new JLabel(SignupViewModel.USERNAME_LABEL);
@@ -126,17 +171,20 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         // sign up Button
         gbc.gridy++;
         gbc.gridx = 0;
-        gbc.gridwidth = 2; // Center across two columns
+        // Center across two columns
+        gbc.gridwidth = 2;
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
-        signUp.setBackground(new Color(135, 206, 250)); // Light blue button
+        // Light blue button
+        signUp.setBackground(new Color(LIGHTBLUEBUTTONR, LIGHTBLUEBUTTONG, LIGHTBLUEBUTTONB));
         signUp.setForeground(Color.DARK_GRAY);
-        signUp.setPreferredSize(new Dimension(150, 30));
+        signUp.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         signUpPanel.add(signUp, gbc);
 
         // Login Hyperlink
         gbc.gridy++;
         final JLabel loginLink = new JLabel("Login");
-        loginLink.setForeground(new Color(0, 102, 204)); // Light blue hyperlink color
+        // Light blue hyperlink color
+        loginLink.setForeground(new Color(LIGHTBLUELINKR, LIGHTBLUELINKG, LIGHTBLUELINKB));
         loginLink.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         signUpPanel.add(loginLink, gbc);
@@ -152,7 +200,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         gbc.gridx = 2;
         final JLabel cancel = new JLabel(SignupViewModel.CANCEL_BUTTON_LABEL);
-        cancel.setForeground(new Color(0, 102, 204)); // Light blue hyperlink color
+        // Light blue hyperlink color
+        cancel.setForeground(new Color(LIGHTBLUELINKR, LIGHTBLUELINKG, LIGHTBLUELINKB));
         cancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         signUpPanel.add(cancel, gbc);
@@ -184,12 +233,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-
         addUsernameListener();
         addPasswordListener();
         addRepeatPasswordListener();
-
-
     }
 
     private void addUsernameListener() {
