@@ -1,13 +1,17 @@
 package view;
 
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.LinearGradientPaint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,10 +19,32 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
+
 /**
  * The View for when the user is logging into the program.
  */
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    private static final int TEN = 10;
+    private static final int FONT_SIZE = 28;
+    private static final int LIGHT_BLUE_R = 135;
+    private static final int LIGHT_BLUE_G = 206;
+    private static final int LIGHT_BLUE_B = 250;
+    private static final int WIDTH = 150;
+    private static final int HEIGHT = 30;
+    private static final int LB_HYPERLINK_G = 102;
+    private static final int LB_HYPERLINK_B = 204;
 
     private final String viewName = "log in";
     private final LoginViewModel loginViewModel;
@@ -29,7 +55,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JLabel passwordErrorField = new JLabel();
 
-//    private final JButton logIn;
+    // private final JButton logIn;
 
     private LoginController loginController;
 
@@ -41,36 +67,32 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         final JLabel title = new JLabel("Login Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-//        final LabelTextPanel usernameInfo = new LabelTextPanel(
-//                new JTextField(15);
-//        final LabelTextPanel passwordInfo = new LabelTextPanel(
-//                new JPasswordField(15);
-
-
-
-
+        // final LabelTextPanel usernameInfo = new LabelTextPanel(
+        //        new JTextField(15);
+        // final LabelTextPanel passwordInfo = new LabelTextPanel(
+        //        new JPasswordField(15);
 
         // Custom JPanel with Lighter Multicolor Gradient Background
-        JPanel loginPanel = new JPanel() {
+        final JPanel loginPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
+                final Graphics2D g2d = (Graphics2D) g;
 
                 // Define lighter tones of the colors for the gradient
-                Color[] colors = {
-                        new Color(255, 200, 140), // Light Orange
-                        new Color(255, 255, 200), // Light Yellow
-                        new Color(173, 216, 230), // Light Blue
-                        new Color(255, 182, 193), // Light Red (Pinkish)
-                        new Color(255, 192, 203)  // Light Pink
+                final Color[] colors = {
+                    // Light Orange, Yellow Blue, Red (Pinkish), Pink
+                    new Color(255, 200, 140),
+                    new Color(255, 255, 200),
+                    new Color(173, 216, 230),
+                    new Color(255, 182, 193),
+                    new Color(255, 192, 203),
                 };
 
-
-                float[] fractions = {0.0f, 0.25f, 0.5f, 0.75f, 1.0f};
+                final float[] fractions = {0.0f, 0.25f, 0.5f, 0.75f, 1.0f};
 
                 // Create a LinearGradientPaint for the multicolor background
-                LinearGradientPaint gradient = new LinearGradientPaint(
+                final LinearGradientPaint gradient = new LinearGradientPaint(
                         0, 0, getWidth(), getHeight(), fractions, colors
                 );
 
@@ -79,28 +101,28 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             }
         };
         this.setLayout(new BorderLayout());
-        loginPanel.setLayout(new GridBagLayout()); // Use GridBagLayout for proportional scaling
+        loginPanel.setLayout(new GridBagLayout());
         this.add(loginPanel, BorderLayout.CENTER);
 
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        final GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(TEN, TEN, TEN, TEN);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.weightx = 1;
         gbc.weighty = 0;
 
         // Title Label
-        JLabel titleLabel = new JLabel(viewName);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
+        final JLabel titleLabel = new JLabel(viewName);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
         titleLabel.setForeground(Color.DARK_GRAY);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2; // Center across two columns
+        gbc.gridwidth = 2;
         loginPanel.add(titleLabel, gbc);
 
         // Username Label and TextField
-        gbc.gridwidth = 1; // Reset grid width
+        // Reset grid width
+        gbc.gridwidth = 1;
         gbc.gridy++;
         gbc.gridx = 0;
         final JLabel usernameLabel = new JLabel("Username:");
@@ -122,22 +144,24 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         loginPanel.add(passwordInputField, gbc);
 
-
         // Login Button
         gbc.gridy++;
         gbc.gridx = 0;
-        gbc.gridwidth = 2; // Center across two columns
-        JButton loginButton = new JButton("Login");
-        loginButton.setBackground(new Color(135, 206, 250)); // Light blue button
+        // Center across two columns
+        gbc.gridwidth = 2;
+        final JButton loginButton = new JButton("Login");
+        // Light blue button
+        loginButton.setBackground(new Color(LIGHT_BLUE_R, LIGHT_BLUE_G, LIGHT_BLUE_B));
         loginButton.setForeground(Color.DARK_GRAY);
-        loginButton.setPreferredSize(new Dimension(150, 30));
+        loginButton.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         loginPanel.add(loginButton, gbc);
 
         // Sign Up Hyperlink
         gbc.gridy++;
         gbc.gridx = 0;
-        JLabel cancelLink = new JLabel("Cancel");
-        cancelLink.setForeground(new Color(0, 102, 204)); // Light blue hyperlink color
+        final JLabel cancelLink = new JLabel("Cancel");
+        // Light blue hyperlink color
+        cancelLink.setForeground(new Color(0, LB_HYPERLINK_G, LB_HYPERLINK_B));
         cancelLink.setCursor(new Cursor(Cursor.HAND_CURSOR));
         loginPanel.add(cancelLink, gbc);
 
@@ -164,13 +188,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 }
         );
 
-//        cancel.addActionListener(
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent evt) {
-//                        loginController.switchToSignupView();
-//                    }
-//                }
-//        );
+        // cancel.addActionListener(
+        //        new ActionListener() {
+        //            public void actionPerformed(ActionEvent evt) {
+        //                loginController.switchToSignupView();
+        //            }
+        //        }
+        // );
 
         usernameInputField.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -196,7 +220,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             }
         });
 
-
         passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
@@ -220,7 +243,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 documentListenerHelper();
             }
         });
-
 
         this.add(loginPanel);
     }
