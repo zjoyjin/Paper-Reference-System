@@ -3,6 +3,7 @@ package interface_adapter.query;
 import java.util.Set;
 
 import entity.Article;
+import entity.User;
 import use_case.query.QueryInputBoundary;
 import use_case.query.QueryInputData;
 import use_case.results.ResultsDataAccessInterface;
@@ -23,8 +24,8 @@ public class QueryController {
      * Executes the Query Use Case.
      * @param topic the topic being searched about
      */
-    public void execute(String topic) {
-        final QueryInputData queryInputData = new QueryInputData(topic);
+    public void execute(String topic, User user) {
+        final QueryInputData queryInputData = new QueryInputData(topic, user);
 
         queryUseCaseInteractor.execute(queryInputData);
     }

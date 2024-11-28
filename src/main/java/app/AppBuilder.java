@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import data_access.InMemorySearchHistoryDataAcessObject;
 import data_access.InMemoryUserDataAccessObject;
 import data_access.QueryDataAccessObject;
 import data_access.TestDataAccessObject;
@@ -50,6 +51,7 @@ import use_case.results.ResultsInputBoundary;
 import use_case.results.ResultsInteractor;
 import use_case.results.ResultsOutputBoundary;
 
+
 import view.*;
 
 /**
@@ -73,6 +75,7 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    private final InMemorySearchHistoryDataAcessObject searchHistoryDao = new InMemorySearchHistoryDataAcessObject();
 
     private final ResultsDataAccessInterface queryDao = new TestDataAccessObject();
 
@@ -238,7 +241,7 @@ public class AppBuilder {
     public AppBuilder addQueryUseCase() {
         // resultsViewModel = new ResultsViewModel();
         final QueryOutputBoundary queryOutputBoundary = new QueryPresenter(viewManagerModel, queryViewModel);
-        final QueryInputBoundary queryInteractor = new QueryInteractor(queryOutputBoundary);
+        final QueryInputBoundary queryInteractor = new QueryInteractor(queryOutputBoundary, searchHistoryDao);
 
         final QueryController queryController = new QueryController(queryInteractor, queryDao);
         queryView.setQueryController(queryController);
