@@ -24,4 +24,9 @@ public class QueryInteractor implements QueryInputBoundary {
     public void switchToQueryView() {
         queryPresenter.switchToQueryView();
     }
+
+    @Override
+    public void switchToLoggedInView() {
+        queryPresenter.switchToLoggedInView();
+    }
 }

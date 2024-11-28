@@ -43,4 +43,10 @@ public class QueryPresenter implements QueryOutputBoundary {
 
         viewManagerModel.firePropertyChanged();
     }
+
+    @Override
+    public void switchToLoggedInView() {
+        viewManagerModel.setState("logged in");
+        viewManagerModel.firePropertyChanged();
+    }
 }

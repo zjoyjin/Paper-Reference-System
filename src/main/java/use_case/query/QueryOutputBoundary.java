@@ -19,4 +19,6 @@ public interface QueryOutputBoundary {
      * Switches to the Query View.
      */
     void switchToQueryView();
+
+    void switchToLoggedInView();
 }
