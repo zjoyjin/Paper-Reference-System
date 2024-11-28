@@ -1,3 +1,5 @@
+package SummaryPanelModule;
+
 import entity.Article;
 
 import javax.swing.*;
@@ -12,7 +14,7 @@ public class SummaryPanel extends JPanel {
     private final JTextArea summaryTextArea;
 
     // initialize the panel aitcle details and the summary
-    public SummaryPanel(String title, Set<String> authors, String publication, String summary) {
+    public SummaryPanel(String title, Set<String> authors, String publication, String URL) {
         // Set up the layout for the panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -34,6 +36,7 @@ public class SummaryPanel extends JPanel {
 
         // Summary (scrollable)
         summaryTextArea = new JTextArea(10, 30);
+        String summary = CohereSummary01.getSummary(URL);
         summaryTextArea.setText(summary);
         summaryTextArea.setWrapStyleWord(true);
         summaryTextArea.setLineWrap(true);
@@ -55,8 +58,8 @@ public class SummaryPanel extends JPanel {
         Article article = new Article("1234.5678", "Sample Article Title", authors, publicationYear, new HashSet<>());
 
         // Use the link
-        String urlToSummarize = "https://www.scienceabc.com/nature/bananas-change-colour-upon-ripening.html";//article.getLink();
-
+//        String urlToSummarize = "https://www.scienceabc.com/nature/bananas-change-colour-upon-ripening.html";//article.getLink();
+        String urlToSummarize = "https://doi.org/10.1016/j.gendis.2022.02.020";
         // CohereSummary
         String summary = CohereSummary01.getSummary(urlToSummarize);  // Call the CohereSummary API to get the summary
 
@@ -71,7 +74,6 @@ public class SummaryPanel extends JPanel {
         frame.add(panel);
         frame.setVisible(true);
     }
-
 
 }
 
