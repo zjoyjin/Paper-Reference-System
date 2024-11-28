@@ -14,17 +14,16 @@ Using Java Swing, the program allows users to enter research topics and see rele
 User Stories:
 - As a student writing a paper on “Should Ontario School Board need to ban phones in classrooms”, I am unsure about where to start. I enter some keywords into the search bar, which generates a graph displaying the 10 most relevant articles. Articles that cite each other (and are thus more related) are visualized, allowing me to easily identify which group of articles are most relevant to my topic, and which articles may be used to further extend my research in a particular direction. [team story] 
 - As a student, I want to be able to sign up/log in to the research paper database in order to be able to search for papers that I can use for my own research.
-- As a student writing a research paper on Alzheimer's disease, I want to be able to type in my topic in the search bar and be shown other research papers relevant to my topic.
-- As a student writing a research paper on ethics in machine learning, I want to be able enter my topic and quickly see what research article in the system is the most relevant to my topic and see what other articles it cites in order to ensure that I have the most relevant and trustworthy article.
-- As a student who loves Canadian geese, I want to be able to search for and see the 10 most relevant articles about the migration of Canadian geese so that I can get a general understanding about this topic.
-- As a student writing a research paper on the role of pets in reducing stress, I want to be able to enter my topic into the search bar and be provided with a summarization of the most relevant paper.
-- As a student writing a research paper on the evolution of video games, I want to be able to enter my topic into the search bar and click on any node in the given graph in order to view more detailed info about the paper, such as the link to it or the date of publication.
-- As a student writing a research paper on the hippo pathway, I want to be able to use the generated directed graph to see which paper cite which. This way, I can see which paper is the most recent (as it cites most of the other papers) or which paper contains the most fundamental information (as most of the other papers cite it), and then use the one that corresponds most with what I want in my own research paper.
+- As a student writing a research paper on Alzheimer's disease, I want to be able to type in my topic in the search bar and search for research papers relevant to my topic. [Liz]
+- As a student who loves Canadian geese, I want to be able to search for and see the 10 most relevant articles about the migration of Canadian geese so that I can get a general understanding about this topic. [Bowen]
+- As a student writing a research paper on the role of pets in reducing stress, I want to be able to enter my topic into the search bar and be shown a summarization of the most relevant paper. [Joyee]
+- As a student writing a research paper on the hippo pathway, I want to be able to use the generated directed graph to see which paper cite which. This way, I can see which paper is the most recent (as it cites most of the other papers) or which paper contains the most fundamental information (as most of the other papers cite it), and then use the one that corresponds most with what I want in my own research paper. [Amy]
+- As a student writing a research paper on the evolution of video games, I want to be able to enter my topic into the search bar, see a directed graph containing information on research papers, and use keyboard commands to view more detailed info about the paper, such as the link to it or the date of publication. [Ashely]
   
 ## Authors
-1. Joyee Jin
-2. Ashley Bi
-3. Amy Sun
-4. Bowen Zhang
-5. Elizabeth Liu
+1. Joyee Jin @zjoyjin
+2. Ashley Bi @trashb
+3. Amy Sun @amysun11
+4. Bowen Zhang @SuperBowen
+5. Elizabeth Liu @lizzie_liu
 
