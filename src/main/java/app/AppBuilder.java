@@ -1,6 +1,6 @@
 package app;
 
-import java.awt.CardLayout;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,6 +8,7 @@ import javax.swing.WindowConstants;
 
 import data_access.InMemoryUserDataAccessObject;
 import data_access.QueryDataAccessObject;
+import data_access.TestDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -25,6 +26,10 @@ import interface_adapter.query.QueryViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.results.ResultsController;
+import interface_adapter.results.ResultsPresenter;
+import interface_adapter.results.ResultsViewModel;
+
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -37,9 +42,14 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.query.QueryInputBoundary;
 import use_case.query.QueryInteractor;
 import use_case.query.QueryOutputBoundary;
+import use_case.results.ResultsDataAccessInterface;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.results.ResultsInputBoundary;
+import use_case.results.ResultsInteractor;
+import use_case.results.ResultsOutputBoundary;
+
 import view.*;
 
 /**
@@ -64,7 +74,7 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
 
-    private final QueryDataAccessObject queryDao = new QueryDataAccessObject();
+    private final ResultsDataAccessInterface queryDao = new TestDataAccessObject();
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -75,6 +85,12 @@ public class AppBuilder {
     private QueryView queryView;
     private QueryViewModel queryViewModel;
     private QueryController queryController;
+    private ResultsView resultsView;
+    private ResultsViewModel resultsViewModel;
+
+    private ResultsController resultsController;
+    private ResultsOutputBoundary resultsOutputBoundary;
+    private ResultsInputBoundary resultsInteractor;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -87,9 +103,19 @@ public class AppBuilder {
     public AppBuilder addSignupView() {
         signupViewModel = new SignupViewModel();
         signupView = new SignupView(signupViewModel);
+
+//        cardPanel.setLayout(new BorderLayout());
+//        signupView.setBorder(null);
+
         cardPanel.add(signupView, signupView.getViewName());
+
+
+
+//        cardPanel.add(signupView, signupView.getViewName());
         return this;
     }
+
+
 
     /**
      * Adds the Login View to the application.
@@ -127,6 +153,20 @@ public class AppBuilder {
         cardPanel.add(queryView, queryView.getViewName());
         return this;
     }
+
+    /**
+     * Adds the Query View to the application.
+     * @return this builder
+     */
+    public AppBuilder addResultsView() {
+        resultsViewModel = new ResultsViewModel();
+        this.resultsView = new ResultsView(resultsViewModel);
+        cardPanel.add(resultsView, resultsView.getViewName());
+        return this;
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////
 
     /**
      * Adds the Signup Use Case to the application.
@@ -196,12 +236,44 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addQueryUseCase() {
+        // resultsViewModel = new ResultsViewModel();
         final QueryOutputBoundary queryOutputBoundary = new QueryPresenter(viewManagerModel, queryViewModel);
         final QueryInputBoundary queryInteractor = new QueryInteractor(queryOutputBoundary);
 
         final QueryController queryController = new QueryController(queryInteractor, queryDao);
         queryView.setQueryController(queryController);
         loggedInView.setQueryController(queryController);
+
+
+//        resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
+//        resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
+//
+//        resultsController = new ResultsController(resultsInteractor);
+        queryView.setResultsController(resultsController);
+
+        return this;
+    }
+
+    /**
+     * Adds the Results Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addResultsUseCase() {
+        //resultsViewModel = new ResultsViewModel();
+        // alr init in queryViewModel  (switched to resultsView)
+
+//        final ResultsOutputBoundary resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
+//        final ResultsInputBoundary resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
+//
+//        final ResultsController resultsController = new ResultsController(resultsInteractor);
+//
+        resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
+        resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
+
+        resultsController = new ResultsController(resultsInteractor);
+
+
+        resultsView.setResultsController(resultsController);
         return this;
     }
 
@@ -213,8 +285,10 @@ public class AppBuilder {
         final JFrame application = new JFrame("Login Example");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        application.add(cardPanel);
+        cardPanel.setBorder(null);
 
+        application.add(cardPanel, BorderLayout.CENTER);
+//        cardPanel.setLayout(new BorderLayout());
         viewManagerModel.setState(signupView.getViewName());
         viewManagerModel.firePropertyChanged();
 

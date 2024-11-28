@@ -6,19 +6,16 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import interface_adapter.change_password.ChangePasswordController;
-import interface_adapter.change_password.LoggedInState;
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.logout.LogoutController;
 import interface_adapter.query.QueryController;
 import interface_adapter.query.QueryState;
 import interface_adapter.query.QueryViewModel;
+import interface_adapter.results.ResultsController;
 
 /**
  * The View for when the user is entering a research topic in the program.
@@ -28,6 +25,8 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
 
     private final QueryViewModel queryViewModel;
     private QueryController queryController;
+
+    private ResultsController resultsController;
 
     private final JTextField queryInputField = new JTextField(15);
     private final JButton search;
@@ -49,13 +48,14 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         search.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(search)) {
-                            final QueryState currentState = queryViewModel.getState();
-
-                            queryController.execute(currentState.getTopic());
-                        }
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(search)) {
+                        final QueryState currentState = queryViewModel.getState();
+                        currentState.setTopic(queryInputField.getText());
+                        this.resultsController.execute(
+                                currentState.getTopic()
+                        );
                     }
                 }
         );
@@ -71,12 +71,6 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        final QueryState state = (QueryState) evt.getNewValue();
-
-        // Trying to debug T-T
-        String newView = (String) evt.getNewValue();
-        System.out.println("Current View Changed: " + newView);
-
     }
 
     public String getViewName() {
@@ -87,4 +81,7 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         this.queryController = queryController;
     }
 
+    public void setResultsController(ResultsController resultsController) {
+        this.resultsController = resultsController;
+    }
 }

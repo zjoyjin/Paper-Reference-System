@@ -1,8 +1,5 @@
 package use_case.query;
 
-import use_case.query.QueryOutputData;
-import use_case.signup.SignupOutputData;
-
 /**
  * The output boundary for the Query Use Case.
  */
@@ -18,5 +15,8 @@ public interface QueryOutputBoundary {
      */
     void switchToResultsView();
 
+    /**
+     * Switches to the Query View.
+     */
     void switchToQueryView();
 }

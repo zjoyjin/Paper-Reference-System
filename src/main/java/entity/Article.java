@@ -48,4 +48,14 @@ public class Article {
     public Set<String> getReferences() {
         return references;
     }
+
+    /**
+     * Checks if this article has a reference to the given article.
+     * @param article the article to check for a reference to
+     * @return whether this article contains a reference to the given article
+     */
+    public boolean hasReference(Article article) {
+        return this.references.contains(article.getDoi());
+    }
+
 }

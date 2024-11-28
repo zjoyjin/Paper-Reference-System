@@ -13,15 +13,18 @@ public class Main {
     public static void main(String[] args) {
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
-                                            .addLoginView()
                                             .addSignupView()
+                                            .addLoginView()
                                             .addLoggedInView()
+                .addResultsView()
+                .addResultsUseCase()
                                             .addQueryView()
                                             .addQueryUseCase()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
+
                                             .build();
 
         application.pack();

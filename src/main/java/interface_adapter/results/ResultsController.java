@@ -1,7 +1,7 @@
 package interface_adapter.results;
 
-import use_case.results.ResultsInputData;
 import use_case.results.ResultsInputBoundary;
+import use_case.results.ResultsInputData;
 
 /**
  * The controller for the Results Use Case.

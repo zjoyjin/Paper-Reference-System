@@ -1,22 +1,25 @@
 package data_access;
 
-import entity.Article;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringJoiner;
 
-import use_case.query.QueryDataAccessInterface;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class TestDataAccessObject implements QueryDataAccessInterface {
+import entity.Article;
+import use_case.query.QueryDataAccessInterface;
+import use_case.results.ResultsDataAccessInterface;
+
+/**
+ * The DAO for testing data access object.
+ */
+public class TestDataAccessObject implements QueryDataAccessInterface, ResultsDataAccessInterface {
     private static final String SUCCESS_CODE = "ok";
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
@@ -44,7 +47,7 @@ public class TestDataAccessObject implements QueryDataAccessInterface {
      */
     @Override
     public Set<Article> get(String sortType, String query) {
-        Set<Article> articles = new HashSet<>();
+        final Set<Article> articles = new HashSet<>();
 
         try {
             final String jsonString = Files.readString(Paths.get(getClass().getClassLoader()

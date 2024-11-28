@@ -1,5 +1,8 @@
 package use_case.results;
 
+/**
+ * Input Boundary for actions which are related to the results of a query.
+ */
 public interface ResultsInputBoundary {
 
     /**
@@ -8,5 +11,8 @@ public interface ResultsInputBoundary {
      */
     void execute(ResultsInputData resultsInputData);
 
-    // void switchToQueryView();
+    /**
+     * Switch to query page view.
+     */
+    void switchToQueryView();
 }

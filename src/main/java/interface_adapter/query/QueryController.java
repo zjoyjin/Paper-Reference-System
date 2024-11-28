@@ -1,20 +1,20 @@
 package interface_adapter.query;
 
-import use_case.login.LoginInputData;
-import data_access.QueryDataAccessObject;
-import entity.Article;
 import java.util.Set;
+
+import entity.Article;
 import use_case.query.QueryInputBoundary;
 import use_case.query.QueryInputData;
+import use_case.results.ResultsDataAccessInterface;
 
 /**
  * The controller for the Query Use Case.
  */
 public class QueryController {
     private final QueryInputBoundary queryUseCaseInteractor;
-    private final QueryDataAccessObject queryDao;
+    private final ResultsDataAccessInterface queryDao;
 
-    public QueryController(QueryInputBoundary queryUseCaseInteractor, QueryDataAccessObject queryDao) {
+    public QueryController(QueryInputBoundary queryUseCaseInteractor, ResultsDataAccessInterface queryDao) {
         this.queryUseCaseInteractor = queryUseCaseInteractor;
         this.queryDao = queryDao;
     }
@@ -37,8 +37,9 @@ public class QueryController {
     }
 
     /**
-     * //TODO .
+     * Searches for research articles based on given topic input.
      * @param topic the topic being searched about
+     * @return a set of Articles related to given topic
      */
     public Set<Article> searchArticles(String topic) {
         // Uses default sorting by relevance
@@ -46,9 +47,10 @@ public class QueryController {
     }
 
     /**
-     * //TODO .
+     * Searches for research articles based on given topic input and sorting type.
      * @param sortType the way to sort results
      * @param topic the topic being searched about
+     * @return a set of Articles related to given topic based on given sorting method
      */
     public Set<Article> searchArticles(String sortType, String topic) {
         // Allows custom sorting
