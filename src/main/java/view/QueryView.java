@@ -6,16 +6,12 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import interface_adapter.change_password.ChangePasswordController;
-import interface_adapter.change_password.LoggedInState;
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.logout.LogoutController;
 import interface_adapter.query.QueryController;
 import interface_adapter.query.QueryState;
 import interface_adapter.query.QueryViewModel;
@@ -62,15 +58,6 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
                         );
                     }
                 }
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent evt) {
-//                        if (evt.getSource().equals(search)) {
-//                            final QueryState currentState = queryViewModel.getState();
-//
-//                            this.queryController.execute(currentState.getTopic());
-//                        }
-//                    }
-//                }
         );
         this.add(title);
         this.add(searchInfo);
@@ -84,12 +71,6 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        final QueryState state = (QueryState) evt.getNewValue();
-
-        // Trying to debug T-T
-        String newView = (String) evt.getNewValue();
-        System.out.println("Current View Changed: " + newView);
-
     }
 
     public String getViewName() {

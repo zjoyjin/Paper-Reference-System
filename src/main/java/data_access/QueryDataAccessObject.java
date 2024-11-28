@@ -1,7 +1,9 @@
 package data_access;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.StringJoiner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,9 +20,6 @@ import use_case.results.ResultsDataAccessInterface;
  * The DAO for user data.
  */
 public class QueryDataAccessObject implements QueryDataAccessInterface, ResultsDataAccessInterface {
-    //        LoginUserDataAccessInterface,
-//        ChangePasswordUserDataAccessInterface,
-//        LogoutUserDataAccessInterface {
     private static final String SUCCESS_CODE = "ok";
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
@@ -42,8 +41,7 @@ public class QueryDataAccessObject implements QueryDataAccessInterface, ResultsD
     private Set<Article> articles = new HashSet<>();
 
     public QueryDataAccessObject() {
-//        this.articleFactory = userFactory;
-//        // No need to do anything to reinitialize a user list! The data is the cloud that may be miles away.
+        // this.articleFactory = userFactory;
     }
 
     @Override
@@ -131,99 +129,100 @@ public class QueryDataAccessObject implements QueryDataAccessInterface, ResultsD
 
     //////////////////////STUFF BELOW COPIED OVER FROM DBUSERACCESSOBJECT ////////////////////////
 
-//    @Override
-//    public void setCurrentUsername(String name) {
-//        // this isn't implemented for the lab
-//    }
-//
-//    @Override
-//    public boolean existsByName(String username) {
-//        final OkHttpClient client = new OkHttpClient().newBuilder()
-//                .build();
-//        final Request request = new Request.Builder()
-//                .url(String.format("http://vm003.teach.cs.toronto.edu:20112/checkIfUserExists?username=%s", username))
-//                .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
-//                .build();
-//        try {
-//            final Response response = client.newCall(request).execute();
-//
-//            final JSONObject responseBody = new JSONObject(response.body().string());
-//
-//            return responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE;
-//        }
-//        catch (IOException | JSONException ex) {
-//            throw new RuntimeException(ex);
-//        }
-//    }
-//
-//    @Override
-//    public void save(User user) {
-//        final OkHttpClient client = new OkHttpClient().newBuilder()
-//                .build();
-//
-//        // POST METHOD
-//        final MediaType mediaType = MediaType.parse(CONTENT_TYPE_JSON);
-//        final JSONObject requestBody = new JSONObject();
-//        requestBody.put(USERNAME, user.getName());
-//        requestBody.put(PASSWORD, user.getPassword());
-//        final RequestBody body = RequestBody.create(requestBody.toString(), mediaType);
-//        final Request request = new Request.Builder()
-//                .url("http://vm003.teach.cs.toronto.edu:20112/user")
-//                .method("POST", body)
-//                .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
-//                .build();
-//        try {
-//            final Response response = client.newCall(request).execute();
-//
-//            final JSONObject responseBody = new JSONObject(response.body().string());
-//
-//            if (responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE) {
-//                // success!
-//            }
-//            else {
-//                throw new RuntimeException(responseBody.getString(MESSAGE));
-//            }
-//        }
-//        catch (IOException | JSONException ex) {
-//            throw new RuntimeException(ex);
-//        }
-//    }
-//
-//    @Override
-//    public void changePassword(User user) {
-//        final OkHttpClient client = new OkHttpClient().newBuilder()
-//                .build();
-//
-//        // POST METHOD
-//        final MediaType mediaType = MediaType.parse(CONTENT_TYPE_JSON);
-//        final JSONObject requestBody = new JSONObject();
-//        requestBody.put(USERNAME, user.getName());
-//        requestBody.put(PASSWORD, user.getPassword());
-//        final RequestBody body = RequestBody.create(requestBody.toString(), mediaType);
-//        final Request request = new Request.Builder()
-//                .url("http://vm003.teach.cs.toronto.edu:20112/user")
-//                .method("PUT", body)
-//                .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
-//                .build();
-//        try {
-//            final Response response = client.newCall(request).execute();
-//
-//            final JSONObject responseBody = new JSONObject(response.body().string());
-//
-//            if (responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE) {
-//                // success!
-//            }
-//            else {
-//                throw new RuntimeException(responseBody.getString(MESSAGE));
-//            }
-//        }
-//        catch (IOException | JSONException ex) {
-//            throw new RuntimeException(ex);
-//        }
-//    }
-//
-//    @Override
-//    public String getCurrentUsername() {
-//        return null;
-//    }
+    //    @Override
+    //    public void setCurrentUsername(String name) {
+    //        // this isn't implemented for the lab
+    //    }
+    //
+    //    @Override
+    //    public boolean existsByName(String username) {
+    //        final OkHttpClient client = new OkHttpClient().newBuilder()
+    //                .build();
+    //        final Request request = new Request.Builder()
+    //                .url(String
+    //                .format("http://vm003.teach.cs.toronto.edu:20112/checkIfUserExists?username=%s", username))
+    //                .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
+    //                .build();
+    //        try {
+    //            final Response response = client.newCall(request).execute();
+    //
+    //            final JSONObject responseBody = new JSONObject(response.body().string());
+    //
+    //            return responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE;
+    //        }
+    //        catch (IOException | JSONException ex) {
+    //            throw new RuntimeException(ex);
+    //        }
+    //    }
+    //
+    //    @Override
+    //    public void save(User user) {
+    //        final OkHttpClient client = new OkHttpClient().newBuilder()
+    //                .build();
+    //
+    //        // POST METHOD
+    //        final MediaType mediaType = MediaType.parse(CONTENT_TYPE_JSON);
+    //        final JSONObject requestBody = new JSONObject();
+    //        requestBody.put(USERNAME, user.getName());
+    //        requestBody.put(PASSWORD, user.getPassword());
+    //        final RequestBody body = RequestBody.create(requestBody.toString(), mediaType);
+    //        final Request request = new Request.Builder()
+    //                .url("http://vm003.teach.cs.toronto.edu:20112/user")
+    //                .method("POST", body)
+    //                .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
+    //                .build();
+    //        try {
+    //            final Response response = client.newCall(request).execute();
+    //
+    //            final JSONObject responseBody = new JSONObject(response.body().string());
+    //
+    //            if (responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE) {
+    //                // success!
+    //            }
+    //            else {
+    //                throw new RuntimeException(responseBody.getString(MESSAGE));
+    //            }
+    //        }
+    //        catch (IOException | JSONException ex) {
+    //            throw new RuntimeException(ex);
+    //        }
+    //    }
+    //
+    //    @Override
+    //    public void changePassword(User user) {
+    //        final OkHttpClient client = new OkHttpClient().newBuilder()
+    //                .build();
+    //
+    //        // POST METHOD
+    //        final MediaType mediaType = MediaType.parse(CONTENT_TYPE_JSON);
+    //        final JSONObject requestBody = new JSONObject();
+    //        requestBody.put(USERNAME, user.getName());
+    //        requestBody.put(PASSWORD, user.getPassword());
+    //        final RequestBody body = RequestBody.create(requestBody.toString(), mediaType);
+    //        final Request request = new Request.Builder()
+    //                .url("http://vm003.teach.cs.toronto.edu:20112/user")
+    //                .method("PUT", body)
+    //                .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
+    //                .build();
+    //        try {
+    //            final Response response = client.newCall(request).execute();
+    //
+    //            final JSONObject responseBody = new JSONObject(response.body().string());
+    //
+    //            if (responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE) {
+    //                // success!
+    //            }
+    //            else {
+    //                throw new RuntimeException(responseBody.getString(MESSAGE));
+    //            }
+    //        }
+    //        catch (IOException | JSONException ex) {
+    //            throw new RuntimeException(ex);
+    //        }
+    //    }
+    //
+    //    @Override
+    //    public String getCurrentUsername() {
+    //        return null;
+    //    }
 }

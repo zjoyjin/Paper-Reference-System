@@ -3,7 +3,6 @@ package interface_adapter.query;
 import interface_adapter.ViewManagerModel;
 import use_case.query.QueryOutputBoundary;
 import use_case.query.QueryOutputData;
-import use_case.signup.SignupOutputData;
 
 /**
  * The Presenter for the Query Use Case.
@@ -30,13 +29,6 @@ public class QueryPresenter implements QueryOutputBoundary {
         viewManagerModel.setState(queryViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
-
-//    @Override
-//    public void prepareFailView(String error) {
-//        final QueryState queryState = queryViewModel.getState();
-//        queryState.setQueryError(error);
-//        queryViewModel.firePropertyChanged();
-//    }
 
     @Override
     public void switchToResultsView() {

@@ -1,9 +1,9 @@
 package interface_adapter.query;
 
-import entity.Article;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import entity.Article;
 
 /**
  * The state for the Query View Model.
