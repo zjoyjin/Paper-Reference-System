@@ -18,7 +18,7 @@ public class CohereSummary01 {
                                     + "Please analyze the article at the following link: "
                                     + urlToSummarize
                                     + ". Focus on summarizing the main points, key details, and any notable insights provided.").build());
-            String fullSummary = response.getText();
+            final String fullSummary = response.getText();
             System.out.println("Full Summary: " + fullSummary);
             return fullSummary;
         }
@@ -31,15 +31,15 @@ public class CohereSummary01 {
     }
 
     public static void main(String[] args) {
-        // Example usage:
+        //Example usage:
 //        String urlToSummarize = "https://www.scienceabc.com/nature/bananas-change-colour-upon-ripening.html";
 //        String urlToSummarize = "https://doi.org/10.1016/j.gendis.2022.02.020";
-          String urlToSummarize = "https://www.sciencedirect.com/science/article/pii/S2352304222000782?via%3Dihub";
+          final String urlToSummarize = "https://www.sciencedirect.com/science/article/pii/S2352304222000782?via%3Dihub";
 //        String urlToSummarize = "https://doi.org/10.1016/j.cub.2014.07.034";
-        String summary = getSummary(urlToSummarize);
+        final String summary = getSummary(urlToSummarize);
 
         // Create the view model and pass the summary
-        SummaryViewModel viewModel = new SummaryViewModel(summary);
+        final SummaryViewModel viewModel = new SummaryViewModel(summary);
         viewModel.displaySummary();
     }
 }
