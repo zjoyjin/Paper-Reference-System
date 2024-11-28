@@ -54,7 +54,18 @@ This application was created to address the common challenge students face when 
 - Mark the src folder as the source root.
 
 ## 4. Usage Guide
-
+- Go to Main.java, click the green run button. You should be able to see the sign up page.
+- <img src="images/signup.png" alt="Example Image" width="400">
+- Create your username and password, then click the sign up button. It should direct you to the login page.
+- <img src="images/login.png" alt="Example Image" width="400">
+- Enter your password and click login. If the password is correct, it will direct you to the logged in page.
+- <img src="images/loggedin.png" alt="Example Image" width="400">
+- If you want to search for references now, click go to search. 
+- <img src="images/search%20page.png" alt="Example Image" width="400">
+- Enter your topic and you will get a graph with ten articles relevant to the topic.
+- <img src="images/resultgraph.png" alt="Example Image" width="400">
+- Double click on the nodes to see a summary of the article.
+- <img src="images/summary.png" alt="Example Image" width="400">
 
 ## 5. License
 This project is in the public domain.
