@@ -1,7 +1,6 @@
 import com.cohere.api.Cohere;
 import com.cohere.api.requests.ChatRequest;
 import com.cohere.api.types.*;
-import interface_adapter.SummaryViewModel;
 
 public class CohereSummary01 {
     private static final String API_KEY = "2YU85SBd4B0DOUxLoCHRbbuagFRqzJWz7oeJx26u";

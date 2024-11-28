@@ -1,5 +1,3 @@
-package interface_adapter;
-
 /**
  * The View Model for the summary pannel.
  */
