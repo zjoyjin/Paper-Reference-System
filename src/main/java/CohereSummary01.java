@@ -23,7 +23,6 @@ public class CohereSummary01 {
             System.err.println("Unexpected Error: " + e.getMessage());
         }
         return "Error in summarizing content.";
-
     }
 
     public static void main(String[] args) {
