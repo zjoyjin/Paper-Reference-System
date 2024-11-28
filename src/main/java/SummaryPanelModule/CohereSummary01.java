@@ -1,7 +1,9 @@
+package SummaryPanelModule;
+
+import interface_adapter.SummaryViewModel;
 import com.cohere.api.Cohere;
 import com.cohere.api.requests.ChatRequest;
-import com.cohere.api.types.*;
-import interface_adapter.SummaryViewModel;
+import com.cohere.api.types.NonStreamedChatResponse;
 
 public class CohereSummary01 {
     private static final String API_KEY = "2YU85SBd4B0DOUxLoCHRbbuagFRqzJWz7oeJx26u";
@@ -23,7 +25,10 @@ public class CohereSummary01 {
 
     public static void main(String[] args) {
         // Example usage:
-        String urlToSummarize = "https://www.scienceabc.com/nature/bananas-change-colour-upon-ripening.html";
+//        String urlToSummarize = "https://www.scienceabc.com/nature/bananas-change-colour-upon-ripening.html";
+//        String urlToSummarize = "https://doi.org/10.1016/j.gendis.2022.02.020";
+          String urlToSummarize = "https://www.sciencedirect.com/science/article/pii/S2352304222000782?via%3Dihub";
+//        String urlToSummarize = "https://doi.org/10.1016/j.cub.2014.07.034";
         String summary = getSummary(urlToSummarize);
 
         // Create the view model and pass the summary
