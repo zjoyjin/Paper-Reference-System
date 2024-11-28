@@ -1,3 +1,8 @@
+package interface_adapter;
+
+/**
+ * The View Model for the summary pannel.
+ */
 public class SummaryViewModel {
     private String summary;
 
@@ -5,6 +10,9 @@ public class SummaryViewModel {
         this.summary = summary;
     }
 
+    /**
+     * Prints the summary of the article.
+     */
     public void displaySummary() {
         System.out.println("Summary: " + summary);
     }
