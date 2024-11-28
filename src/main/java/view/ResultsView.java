@@ -43,6 +43,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
 
 
 
+
     public ResultsView(ResultsViewModel resultsViewModel) {
 
         this.resultsViewModel = resultsViewModel;
@@ -51,14 +52,30 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         // Set title
         final JLabel title = new JLabel("Results Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JButton goBack = new JButton("return");
+        goBack.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         /////////////////////
         this.setPreferredSize(new Dimension(800, 600));
         ////////////
 
         // add javafx panel for the graph
+
         this.add(jfxPanel);
         this.add(title);
+        this.add(goBack);
+
+
+        goBack.addActionListener(
+                evt -> {
+                    if (this.resultsController != null) {
+                        this.resultsController.switchToQueryView();
+                    }
+                    else {
+                        System.err.println("ResultsController is null!");
+                    }
+                }
+        );
     }
 
     private void populateGraph(Set<Article> articles, Set<Edge> edges) {
