@@ -17,7 +17,8 @@ public class CohereSummary01 {
             String fullSummary = response.getText();
             System.out.println("Full Summary: " + fullSummary);
             return fullSummary;
-        } catch (CohereApiError e) {
+        }
+        catch (CohereApiError e) {
             System.err.println("Cohere API Error: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Unexpected Error: " + e.getMessage());
