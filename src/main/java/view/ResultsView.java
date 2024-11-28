@@ -1,14 +1,6 @@
 package view;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.*;
-
-import javax.swing.*;
-
+import SummaryPanelModule.SummaryPanel;
 import com.brunomnsilva.smartgraph.graph.Digraph;
 import com.brunomnsilva.smartgraph.graph.DigraphEdgeList;
 import com.brunomnsilva.smartgraph.graphview.SmartCircularSortedPlacementStrategy;
@@ -17,13 +9,22 @@ import com.brunomnsilva.smartgraph.graphview.SmartPlacementStrategy;
 import com.brunomnsilva.smartgraph.graphview.SmartRandomPlacementStrategy;
 import entity.Article;
 import entity.Edge;
-import interface_adapter.change_password.LoggedInState;
-import interface_adapter.query.QueryViewModel;
 import interface_adapter.results.ResultsController;
 import interface_adapter.results.ResultsState;
 import interface_adapter.results.ResultsViewModel;
-import javafx.scene.Scene;
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class ResultsView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -115,7 +116,23 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
             System.out.println("Vertex double-clicked!");
             for (Article a : articles) {
                 if (a.getDoi().equals(graphVertex.getUnderlyingVertex().element())) {
-                    System.out.println("Vertex has DOI: " + a.getDoi());
+//                    System.out.println("Vertex has DOI: " + a.getDoi());
+                    System.out.println(a.getLink());
+
+                    final Set<String> authorSet = Stream.of(a.getAuthors()).collect(Collectors.toSet());
+
+                    SummaryPanel sumPanel = new SummaryPanel(a.getTitle(), authorSet, a.getPublication(),
+                            a.getLink());
+
+                    final JFrame frame = new JFrame("Article Summary");
+
+                    // Set up the frame to display the panel
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.setSize(400, 500);
+                    frame.setLocationRelativeTo(null);
+                    frame.add(sumPanel);
+                    frame.setVisible(true);
+
                 }
             }
 
