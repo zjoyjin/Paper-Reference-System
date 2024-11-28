@@ -37,27 +37,27 @@ import interface_adapter.signup.SignupViewModel;
  */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
     // Colours
-    private static final int LIGHTBLUER = 173;
-    private static final int LIGHTBLUEG = 216;
-    private static final int LIGHTBLUEB = 230;
-    private static final int LIGHTGREENR = 144;
-    private static final int LIGHTGREENG = 238;
-    private static final int LIGHTGREENB = 144;
-    private static final int LIGHTPURPLER = 216;
-    private static final int LIGHTPURPLEG = 191;
-    private static final int LIGHTPURPLEB = 216;
-    private static final int LIGHTPINKR = 255;
-    private static final int LIGHTPINKG = 182;
-    private static final int LIGHTPINKB = 193;
-    private static final int LIGHTORANGER = 255;
-    private static final int LIGHTORANGEG = 228;
-    private static final int LIGHTORANGEB = 181;
-    private static final int LIGHTBLUEBUTTONR = 135;
-    private static final int LIGHTBLUEBUTTONG = 206;
-    private static final int LIGHTBLUEBUTTONB = 250;
-    private static final int LIGHTBLUELINKR = 0;
-    private static final int LIGHTBLUELINKG = 102;
-    private static final int LIGHTBLUELINKB = 204;
+    private static final int LIGHT_BLUE_R = 173;
+    private static final int LIGHT_BLUE_G = 216;
+    private static final int LIGHT_BLUE_B = 230;
+    private static final int LIGHT_GREEN_R = 144;
+    private static final int LIGHT_GREEN_G = 238;
+    private static final int LIGHT_GREEN_B = 144;
+    private static final int LIGHT_PURPLE_R = 216;
+    private static final int LIGHT_PURPLE_G = 191;
+    private static final int LIGHT_PURPLE_B = 216;
+    private static final int LIGHT_PINK_R = 255;
+    private static final int LIGHT_PINK_G = 182;
+    private static final int LIGHT_PINK_B = 193;
+    private static final int LIGHT_ORANGE_R = 255;
+    private static final int LIGHT_ORANGE_G = 228;
+    private static final int LIGHT_ORANGE_B = 181;
+    private static final int LIGHT_BLUE_BUTTON_R = 135;
+    private static final int LIGHT_BLUE_BUTTON_G = 206;
+    private static final int LIGHT_BLUE_BUTTON_B = 250;
+    private static final int LIGHT_BLUE_LINK_R = 0;
+    private static final int LIGHT_BLUE_LINK_G = 102;
+    private static final int LIGHT_BLUE_LINK_B = 204;
     private static final int TOP = 10;
     private static final int LEFT = 10;
     private static final int BOTTOM = 10;
@@ -95,11 +95,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 // Define lighter tones of the colors for the gradient
                 // Light Blue, Light Green, Light Purple, Light Pink, Light Orange
                 final Color[] colors = {
-                    new Color(LIGHTBLUER, LIGHTBLUEG, LIGHTBLUEB),
-                    new Color(LIGHTGREENR, LIGHTGREENG, LIGHTGREENB),
-                    new Color(LIGHTPURPLER, LIGHTPURPLEG, LIGHTPURPLEB),
-                    new Color(LIGHTPINKR, LIGHTPINKG, LIGHTPINKB),
-                    new Color(LIGHTORANGER, LIGHTORANGEG, LIGHTORANGEB)};
+                    new Color(LIGHT_BLUE_R, LIGHT_BLUE_G, LIGHT_BLUE_B),
+                    new Color(LIGHT_GREEN_R, LIGHT_GREEN_G, LIGHT_GREEN_B),
+                    new Color(LIGHT_PURPLE_R, LIGHT_PURPLE_G, LIGHT_PURPLE_B),
+                    new Color(LIGHT_PINK_R, LIGHT_PINK_G, LIGHT_PINK_B),
+                    new Color(LIGHT_ORANGE_R, LIGHT_ORANGE_G, LIGHT_ORANGE_B)};
 
                 final float[] fractions = {0.0f, 0.25f, 0.5f, 0.75f, 1.0f};
 
@@ -175,7 +175,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         gbc.gridwidth = 2;
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
         // Light blue button
-        signUp.setBackground(new Color(LIGHTBLUEBUTTONR, LIGHTBLUEBUTTONG, LIGHTBLUEBUTTONB));
+        signUp.setBackground(new Color(LIGHT_BLUE_BUTTON_R, LIGHT_BLUE_BUTTON_G, LIGHT_BLUE_BUTTON_B));
         signUp.setForeground(Color.DARK_GRAY);
         signUp.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         signUpPanel.add(signUp, gbc);
@@ -184,7 +184,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         gbc.gridy++;
         final JLabel loginLink = new JLabel("Login");
         // Light blue hyperlink color
-        loginLink.setForeground(new Color(LIGHTBLUELINKR, LIGHTBLUELINKG, LIGHTBLUELINKB));
+        loginLink.setForeground(new Color(LIGHT_BLUE_LINK_R, LIGHT_BLUE_LINK_G, LIGHT_BLUE_LINK_B));
         loginLink.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         signUpPanel.add(loginLink, gbc);
@@ -201,7 +201,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         gbc.gridx = 2;
         final JLabel cancel = new JLabel(SignupViewModel.CANCEL_BUTTON_LABEL);
         // Light blue hyperlink color
-        cancel.setForeground(new Color(LIGHTBLUELINKR, LIGHTBLUELINKG, LIGHTBLUELINKB));
+        cancel.setForeground(new Color(LIGHT_BLUE_LINK_R, LIGHT_BLUE_LINK_G, LIGHT_BLUE_LINK_B));
         cancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         signUpPanel.add(cancel, gbc);
