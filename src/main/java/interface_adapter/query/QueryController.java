@@ -63,4 +63,11 @@ public class QueryController {
     public void switchToQueryView() {
         queryUseCaseInteractor.switchToQueryView();
     }
+
+    /**
+     * Executes the "switch to LoggedInView" Use Case.
+     */
+    public void switchToLoggedInView() {
+        queryUseCaseInteractor.switchToLoggedInView();
+    }
 }

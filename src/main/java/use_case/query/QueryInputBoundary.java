@@ -20,4 +20,9 @@ public interface QueryInputBoundary {
      * Switch to query page view.
      */
     void switchToQueryView();
+
+    /**
+     * Switch to LoggedIn page view.
+     */
+    void switchToLoggedInView();
 }
