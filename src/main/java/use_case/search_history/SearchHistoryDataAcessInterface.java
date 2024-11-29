@@ -9,7 +9,7 @@ public interface SearchHistoryDataAcessInterface {
 
     boolean existsByName(String identifier);
 
-    void save(User user, String SearchText);
+    void save(String username, String SearchText);
 
 
     ArrayList<String> get(String username);

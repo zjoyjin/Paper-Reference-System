@@ -50,6 +50,7 @@ import use_case.signup.SignupOutputBoundary;
 import use_case.results.ResultsInputBoundary;
 import use_case.results.ResultsInteractor;
 import use_case.results.ResultsOutputBoundary;
+import use_case.search_history.SearchHistoryDataAcessInterface;
 
 
 import view.*;
@@ -75,7 +76,7 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-    private final InMemorySearchHistoryDataAcessObject searchHistoryDao = new InMemorySearchHistoryDataAcessObject();
+    private final SearchHistoryDataAcessInterface searchHistoryDao = new InMemorySearchHistoryDataAcessObject();
 
     private final ResultsDataAccessInterface queryDao = new TestDataAccessObject();
 
@@ -152,7 +153,7 @@ public class AppBuilder {
      */
     public AppBuilder addQueryView() {
         queryViewModel = new QueryViewModel();
-        this.queryView = new QueryView(queryViewModel);
+        this.queryView = new QueryView(queryViewModel, loggedInViewModel);
         cardPanel.add(queryView, queryView.getViewName());
         return this;
     }

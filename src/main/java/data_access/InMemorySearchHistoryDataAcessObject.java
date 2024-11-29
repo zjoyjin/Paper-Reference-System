@@ -21,8 +21,7 @@ public class InMemorySearchHistoryDataAcessObject implements SearchHistoryDataAc
     }
 
     @Override
-    public void save(User user, String SearchText) {
-        final String username = user.getName();
+    public void save(String username, String SearchText) {
         if (!existsByName(username)) {
             users.put(username, new ArrayList<String>());
         }

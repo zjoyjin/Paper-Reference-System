@@ -6,16 +6,16 @@ import entity.User;
  */
 public class QueryInputData {
     private final String topic;
-    private final User user;
+    private final String username;
 
-    public QueryInputData(String topic, User user) {
-        this.topic = topic; this.user = user;
+    public QueryInputData(String topic, String username) {
+        this.topic = topic; this.username = username;
     }
 
     String getTopic() {
         return topic;
     }
 
-    User getUser() { return user; }
+    String getUsername() { return username; }
 
 }
