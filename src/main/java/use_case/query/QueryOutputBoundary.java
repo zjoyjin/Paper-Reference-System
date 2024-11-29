@@ -23,5 +23,9 @@ public interface QueryOutputBoundary {
      */
     void switchToQueryView();
 
+
     void showSearchHistory(ArrayList<String> username, JTextField queryInputField, JPopupMenu popupMenu);
+
+    void switchToLoggedInView();
+
 }

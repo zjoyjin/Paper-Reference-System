@@ -12,7 +12,7 @@ public class SummaryPanel extends JPanel {
     private final JLabel authorsLabel;
     private final JLabel publicationLabel;
     private final JTextArea summaryTextArea;
-
+    
     // initialize the panel aitcle details and the summary
     public SummaryPanel(String title, Set<String> authors, String publication, String URL) {
         // Set up the layout for the panel
@@ -24,7 +24,7 @@ public class SummaryPanel extends JPanel {
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Authors
-        String authorsText = "Authors: " + String.join(", ", authors);
+        final String authorsText = "Authors: " + String.join(", ", authors);
         authorsLabel = new JLabel(authorsText);
         authorsLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         authorsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -36,12 +36,12 @@ public class SummaryPanel extends JPanel {
 
         // Summary (scrollable)
         summaryTextArea = new JTextArea(10, 30);
-        String summary = CohereSummary01.getSummary(URL);
+        final String summary = CohereSummary01.getSummary(URL);
         summaryTextArea.setText(summary);
         summaryTextArea.setWrapStyleWord(true);
         summaryTextArea.setLineWrap(true);
         summaryTextArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(summaryTextArea);
+        final JScrollPane scrollPane = new JScrollPane(summaryTextArea);
         scrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Add components to the panel
@@ -53,19 +53,23 @@ public class SummaryPanel extends JPanel {
 
     public static void main(String[] args) {
         // Create Article
-        String[] authors = {"Author A", "Author B"}; //replace this later
-        String publicationYear = "2022"; //replace this with article.getpublication year
-        Article article = new Article("1234.5678", "Sample Article Title", authors, publicationYear, new HashSet<>());
+        // replace this later
+        final String[] authors = {"Author A", "Author B"};
+        // replace this with article.getpublication year
+        final String publicationYear = "2022";
+        final Article article = new Article("1234.5678", "Sample Article Title", authors, publicationYear, new HashSet<>());
 
         // Use the link
-//        String urlToSummarize = "https://www.scienceabc.com/nature/bananas-change-colour-upon-ripening.html";//article.getLink();
-        String urlToSummarize = "https://doi.org/10.1016/j.gendis.2022.02.020";
+//      String urlToSummarize =
+//                             "https://www.scienceabc.com/nature/bananas-change-colour-upon-ripening.html";//article.getLink();
+        final String urlToSummarize = "https://doi.org/10.1016/j.gendis.2022.02.020";
         // CohereSummary
-        String summary = CohereSummary01.getSummary(urlToSummarize);  // Call the CohereSummary API to get the summary
+        // Call the CohereSummary API to get the summary
+        final String summary = CohereSummary01.getSummary(urlToSummarize);
 
         // Set metadata to the GUI components
-        JFrame frame = new JFrame("Article Summary");
-        SummaryPanel panel = new SummaryPanel(article.getTitle(), Set.of(article.getAuthors()), article.getPublication(), summary);
+        final JFrame frame = new JFrame("Article Summary");
+        final SummaryPanel panel = new SummaryPanel(article.getTitle(), Set.of(article.getAuthors()), article.getPublication(), summary);
 
         // Set up the frame to display the panel
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

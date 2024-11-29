@@ -28,4 +28,9 @@ public interface QueryInputBoundary {
      * to get the arraylist of search history with a given username
      */
     void showSearchHistory(String username, JTextField queryInputField, JPopupMenu popupMenu);
+
+     * Switch to LoggedIn page view.
+     */
+    void switchToLoggedInView();
+
 }

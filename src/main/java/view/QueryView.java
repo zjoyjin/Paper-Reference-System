@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -50,6 +50,19 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         final JPanel buttons = new JPanel();
         search = new JButton("Search!");
         buttons.add(search);
+
+        final JLabel cancelLink = new JLabel("Cancel");
+        // Light blue hyperlink color
+        cancelLink.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        buttons.add(cancelLink);
+
+        // Add Mouse Listener to Sign Up Hyperlink
+        cancelLink.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                queryController.switchToLoggedInView();
+            }
+        });
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

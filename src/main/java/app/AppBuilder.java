@@ -1,6 +1,7 @@
 package app;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,7 +9,6 @@ import javax.swing.WindowConstants;
 
 import data_access.InMemorySearchHistoryDataAcessObject;
 import data_access.InMemoryUserDataAccessObject;
-import data_access.QueryDataAccessObject;
 import data_access.TestDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -24,13 +24,12 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.query.QueryController;
 import interface_adapter.query.QueryPresenter;
 import interface_adapter.query.QueryViewModel;
-import interface_adapter.signup.SignupController;
-import interface_adapter.signup.SignupPresenter;
-import interface_adapter.signup.SignupViewModel;
 import interface_adapter.results.ResultsController;
 import interface_adapter.results.ResultsPresenter;
 import interface_adapter.results.ResultsViewModel;
-
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupPresenter;
+import interface_adapter.signup.SignupViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -44,16 +43,25 @@ import use_case.query.QueryInputBoundary;
 import use_case.query.QueryInteractor;
 import use_case.query.QueryOutputBoundary;
 import use_case.results.ResultsDataAccessInterface;
-import use_case.signup.SignupInputBoundary;
-import use_case.signup.SignupInteractor;
-import use_case.signup.SignupOutputBoundary;
 import use_case.results.ResultsInputBoundary;
 import use_case.results.ResultsInteractor;
 import use_case.results.ResultsOutputBoundary;
+
 import use_case.search_history.SearchHistoryDataAcessInterface;
 
 
 import view.*;
+
+import use_case.signup.SignupInputBoundary;
+import use_case.signup.SignupInteractor;
+import use_case.signup.SignupOutputBoundary;
+import view.LoggedInView;
+import view.LoginView;
+import view.QueryView;
+import view.ResultsView;
+import view.SignupView;
+import view.ViewManager;
+
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -61,11 +69,6 @@ import view.*;
  * <p/>
  * This is done by adding each View and then adding related Use Cases.
  */
-// Checkstyle note: you can ignore the "Class Data Abstraction Coupling"
-//                  and the "Class Fan-Out Complexity" issues for this lab; we encourage
-//                  your team to think about ways to refactor the code to resolve these
-//                  if your team decides to work with this as your starter code
-//                  for your final project this term.
 public class AppBuilder {
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
@@ -108,18 +111,14 @@ public class AppBuilder {
         signupViewModel = new SignupViewModel();
         signupView = new SignupView(signupViewModel);
 
-//        cardPanel.setLayout(new BorderLayout());
-//        signupView.setBorder(null);
+        //        cardPanel.setLayout(new BorderLayout());
+        //        signupView.setBorder(null);
 
         cardPanel.add(signupView, signupView.getViewName());
 
-
-
-//        cardPanel.add(signupView, signupView.getViewName());
+        //        cardPanel.add(signupView, signupView.getViewName());
         return this;
     }
-
-
 
     /**
      * Adds the Login View to the application.
@@ -139,7 +138,7 @@ public class AppBuilder {
     public AppBuilder addLoggedInView() {
         loggedInViewModel = new LoggedInViewModel();
         queryViewModel = new QueryViewModel();
-//        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, queryViewModel);
+        //        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, queryViewModel);
         this.loggedInView = new LoggedInView(loggedInViewModel, queryViewModel);
 
         cardPanel.add(loggedInView, loggedInView.getViewName());
@@ -169,8 +168,6 @@ public class AppBuilder {
         return this;
 
     }
-
-//////////////////////////////////////////////////////////////////////////////
 
     /**
      * Adds the Signup Use Case to the application.
@@ -244,15 +241,10 @@ public class AppBuilder {
         final QueryOutputBoundary queryOutputBoundary = new QueryPresenter(viewManagerModel, queryViewModel);
         final QueryInputBoundary queryInteractor = new QueryInteractor(queryOutputBoundary, searchHistoryDao);
 
-        final QueryController queryController = new QueryController(queryInteractor, queryDao);
+        this.queryController = new QueryController(queryInteractor, queryDao);
         queryView.setQueryController(queryController);
         loggedInView.setQueryController(queryController);
 
-
-//        resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
-//        resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
-//
-//        resultsController = new ResultsController(resultsInteractor);
         queryView.setResultsController(resultsController);
 
         return this;
@@ -263,19 +255,16 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addResultsUseCase() {
-        //resultsViewModel = new ResultsViewModel();
+        // resultsViewModel = new ResultsViewModel();
         // alr init in queryViewModel  (switched to resultsView)
 
-//        final ResultsOutputBoundary resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
-//        final ResultsInputBoundary resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
-//
-//        final ResultsController resultsController = new ResultsController(resultsInteractor);
-//
+        // final ResultsOutputBoundary resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
+        // final ResultsInputBoundary resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
+        // final ResultsController resultsController = new ResultsController(resultsInteractor);
         resultsOutputBoundary = new ResultsPresenter(resultsViewModel, viewManagerModel);
         resultsInteractor = new ResultsInteractor(queryDao, resultsOutputBoundary);
 
         resultsController = new ResultsController(resultsInteractor);
-
 
         resultsView.setResultsController(resultsController);
         return this;
@@ -292,7 +281,7 @@ public class AppBuilder {
         cardPanel.setBorder(null);
 
         application.add(cardPanel, BorderLayout.CENTER);
-//        cardPanel.setLayout(new BorderLayout());
+        //        cardPanel.setLayout(new BorderLayout());
         viewManagerModel.setState(signupView.getViewName());
         viewManagerModel.firePropertyChanged();
 

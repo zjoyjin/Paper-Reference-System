@@ -68,6 +68,15 @@ public class QueryController {
         queryUseCaseInteractor.switchToQueryView();
     }
 
+
     public void showSearchHistory(String username, JTextField queryInputField, JPopupMenu popupMenu) {
         queryUseCaseInteractor.showSearchHistory(username, queryInputField, popupMenu);}
+
+    /**
+     * Executes the "switch to LoggedInView" Use Case.
+     */
+    public void switchToLoggedInView() {
+        queryUseCaseInteractor.switchToLoggedInView();
+    }
+
 }

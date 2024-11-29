@@ -36,6 +36,7 @@ public class QueryInteractor implements QueryInputBoundary {
     }
 
     @Override
+
     public void showSearchHistory(String username, JTextField queryInputField, JPopupMenu popupMenu) {
         if (searchHistoryDao.get(username) == null){
             queryPresenter.showSearchHistory(new ArrayList<>(), queryInputField, popupMenu);
@@ -50,5 +51,10 @@ public class QueryInteractor implements QueryInputBoundary {
 
 
 
+
+
+    public void switchToLoggedInView() {
+        queryPresenter.switchToLoggedInView();
+    }
 
 }
