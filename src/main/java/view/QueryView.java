@@ -7,17 +7,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
+import interface_adapter.change_password.LoggedInState;
+import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.query.QueryController;
 import interface_adapter.query.QueryState;
 import interface_adapter.query.QueryViewModel;
 import interface_adapter.results.ResultsController;
+import use_case.query.QueryInteractor;
 
 /**
  * The View for when the user is entering a research topic in the program.
@@ -27,15 +27,19 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
 
     private final QueryViewModel queryViewModel;
     private QueryController queryController;
+    private QueryInteractor queryInteractor;
+
+    private final LoggedInViewModel loggedInViewModel;
 
     private ResultsController resultsController;
 
     private final JTextField queryInputField = new JTextField(15);
     private final JButton search;
 
-    public QueryView(QueryViewModel queryViewModel) {
+    public QueryView(QueryViewModel queryViewModel, LoggedInViewModel loggedInViewModel) {
         this.queryViewModel = queryViewModel;
         this.queryViewModel.addPropertyChangeListener(this);
+        this.loggedInViewModel = loggedInViewModel;
 
         final JLabel title = new JLabel("Query Page");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -62,18 +66,61 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+
+
+
+        final LoggedInState loggedInState = loggedInViewModel.getState();
         search.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(search)) {
                         final QueryState currentState = queryViewModel.getState();
                         currentState.setTopic(queryInputField.getText());
+                        this.queryController.execute(queryInputField.getText(), loggedInState.getUsername());
                         this.resultsController.execute(
                                 currentState.getTopic()
                         );
                     }
                 }
         );
+
+        JPopupMenu popupMenu = new JPopupMenu();
+
+//        ArrayList<String> searchHistories = this.queryController.getSearchHistory(loggedInState.getUsername());
+
+
+        queryInputField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                queryController.showSearchHistory(loggedInState.getUsername(), queryInputField, popupMenu);
+            }
+        });
+
+//        queryInputField.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                popupMenu.removeAll(); // Clear existing suggestions
+//                String input = queryInputField.getText().toLowerCase();
+//
+//                for (String history : searchHistories) {
+//                    if (history.toLowerCase().contains(input)) {
+//                        JMenuItem item = new JMenuItem(history);
+//                        item.addActionListener(new ActionListener() {
+//                            @Override
+//                            public void actionPerformed(ActionEvent e) {
+//                                queryInputField.setText(history); // Autofill the text field
+//                                popupMenu.setVisible(false); // Hide the popup
+//                            }
+//                        });
+//                        popupMenu.add(item);
+//                    }
+//                }
+//
+//                if (popupMenu.getComponentCount() > 0) {
+//                    popupMenu.show(queryInputField, 0, queryInputField.getHeight());
+//                }
+//            }
+//        });
         this.add(title);
         this.add(searchInfo);
         this.add(buttons);

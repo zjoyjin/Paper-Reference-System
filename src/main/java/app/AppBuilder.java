@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import data_access.InMemorySearchHistoryDataAcessObject;
 import data_access.InMemoryUserDataAccessObject;
 import data_access.TestDataAccessObject;
 import entity.CommonUserFactory;
@@ -45,6 +46,12 @@ import use_case.results.ResultsDataAccessInterface;
 import use_case.results.ResultsInputBoundary;
 import use_case.results.ResultsInteractor;
 import use_case.results.ResultsOutputBoundary;
+
+import use_case.search_history.SearchHistoryDataAcessInterface;
+
+
+import view.*;
+
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -54,6 +61,7 @@ import view.QueryView;
 import view.ResultsView;
 import view.SignupView;
 import view.ViewManager;
+
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -71,6 +79,7 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    private final SearchHistoryDataAcessInterface searchHistoryDao = new InMemorySearchHistoryDataAcessObject();
 
     private final ResultsDataAccessInterface queryDao = new TestDataAccessObject();
 
@@ -143,7 +152,7 @@ public class AppBuilder {
      */
     public AppBuilder addQueryView() {
         queryViewModel = new QueryViewModel();
-        this.queryView = new QueryView(queryViewModel);
+        this.queryView = new QueryView(queryViewModel, loggedInViewModel);
         cardPanel.add(queryView, queryView.getViewName());
         return this;
     }
@@ -230,7 +239,7 @@ public class AppBuilder {
     public AppBuilder addQueryUseCase() {
         // resultsViewModel = new ResultsViewModel();
         final QueryOutputBoundary queryOutputBoundary = new QueryPresenter(viewManagerModel, queryViewModel);
-        final QueryInputBoundary queryInteractor = new QueryInteractor(queryOutputBoundary);
+        final QueryInputBoundary queryInteractor = new QueryInteractor(queryOutputBoundary, searchHistoryDao);
 
         this.queryController = new QueryController(queryInteractor, queryDao);
         queryView.setQueryController(queryController);

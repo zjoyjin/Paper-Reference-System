@@ -1,11 +1,15 @@
 package interface_adapter.query;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import entity.Article;
+import entity.User;
 import use_case.query.QueryInputBoundary;
 import use_case.query.QueryInputData;
 import use_case.results.ResultsDataAccessInterface;
+
+import javax.swing.*;
 
 /**
  * The controller for the Query Use Case.
@@ -23,8 +27,8 @@ public class QueryController {
      * Executes the Query Use Case.
      * @param topic the topic being searched about
      */
-    public void execute(String topic) {
-        final QueryInputData queryInputData = new QueryInputData(topic);
+    public void execute(String topic, String username) {
+        final QueryInputData queryInputData = new QueryInputData(topic, username);
 
         queryUseCaseInteractor.execute(queryInputData);
     }
@@ -64,10 +68,15 @@ public class QueryController {
         queryUseCaseInteractor.switchToQueryView();
     }
 
+
+    public void showSearchHistory(String username, JTextField queryInputField, JPopupMenu popupMenu) {
+        queryUseCaseInteractor.showSearchHistory(username, queryInputField, popupMenu);}
+
     /**
      * Executes the "switch to LoggedInView" Use Case.
      */
     public void switchToLoggedInView() {
         queryUseCaseInteractor.switchToLoggedInView();
     }
+
 }

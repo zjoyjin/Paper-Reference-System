@@ -250,6 +250,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         search.addActionListener(
                 evt -> {
                     if (this.queryController != null) {
+//                        final LoggedInState currentState = loggedInViewModel.getState();
+//                        this.queryController.execute();
                         this.queryController.switchToQueryView();
                     }
                     else {
