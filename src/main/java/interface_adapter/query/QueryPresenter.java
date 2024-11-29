@@ -51,7 +51,7 @@ public class QueryPresenter implements QueryOutputBoundary {
     }
 
 
-    public void showSearchHistory(ArrayList<String> arr, JTextField queryInputField , JPopupMenu popupMenu){
+    public void showSearchHistory(ArrayList<String> arr, JTextField queryInputField , JPopupMenu popupMenu) {
         ArrayList<String> searchHistories = arr;
 
         popupMenu.removeAll(); // Clear existing suggestions
@@ -75,10 +75,11 @@ public class QueryPresenter implements QueryOutputBoundary {
             popupMenu.show(queryInputField, 0, queryInputField.getHeight());
         }
 
-    @Override
-    public void switchToLoggedInView() {
-        viewManagerModel.setState("logged in");
-        viewManagerModel.firePropertyChanged();
+        @Override
+        public void switchToLoggedInView(){
+            viewManagerModel.setState("logged in");
+            viewManagerModel.firePropertyChanged();
 
+        }
     }
 }
