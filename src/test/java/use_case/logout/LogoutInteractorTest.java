@@ -12,21 +12,21 @@ class LogoutInteractorTest {
 
     @Test
     void successTest() {
-        LogoutInputData inputData = new LogoutInputData("Paul");
+        LogoutInputData inputData = new LogoutInputData("Paris Saint Germain");
         InMemoryUserDataAccessObject userRepository = new InMemoryUserDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Paul", "password");
+        User user = factory.create("Paris Saint Germain", "password");
         userRepository.save(user);
-        userRepository.setCurrentUsername("Paul");
+        userRepository.setCurrentUsername("Paris Saint Germain");
 
         // This creates a successPresenter that tests whether the test case is as we expect.
         LogoutOutputBoundary successPresenter = new LogoutOutputBoundary() {
             @Override
             public void prepareSuccessView(LogoutOutputData user) {
                 // check that the output data contains the username of who logged out
-                assertEquals("Paul", user.getUsername());
+                assertEquals("Paris Saint Germain", user.getUsername());
             }
 
             @Override
