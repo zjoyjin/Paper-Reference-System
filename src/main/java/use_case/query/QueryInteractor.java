@@ -1,10 +1,11 @@
 package use_case.query;
 
-import use_case.search_history.SearchHistoryDataAcessInterface;
-import entity.User;
-
-import javax.swing.*;
 import java.util.ArrayList;
+
+import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
+
+import use_case.search_history.SearchHistoryDataAcessInterface;
 
 /**
  * The Query Interactor.
@@ -38,7 +39,7 @@ public class QueryInteractor implements QueryInputBoundary {
     @Override
 
     public void showSearchHistory(String username, JTextField queryInputField, JPopupMenu popupMenu) {
-        if (searchHistoryDao.get(username) == null){
+        if (searchHistoryDao.get(username) == null) {
             queryPresenter.showSearchHistory(new ArrayList<>(), queryInputField, popupMenu);
         }
 
@@ -49,10 +50,9 @@ public class QueryInteractor implements QueryInputBoundary {
 
     }
 
-
-
-
-
+    /**
+     * Switch to logged in view.
+     */
     public void switchToLoggedInView() {
         queryPresenter.switchToLoggedInView();
     }

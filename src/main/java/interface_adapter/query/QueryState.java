@@ -30,7 +30,11 @@ public class QueryState {
         this.topic = topic;
     }
 
-    public void setUser(User user) { this.user = user; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public User getUser() { return user; }
+    public User getUser() {
+        return user;
+    }
 }

@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 import SummaryPanelModule.SummaryPanel;
 import com.brunomnsilva.smartgraph.graph.Digraph;
 import com.brunomnsilva.smartgraph.graph.DigraphEdgeList;
+import com.brunomnsilva.smartgraph.graph.InvalidVertexException;
 import com.brunomnsilva.smartgraph.graphview.SmartCircularSortedPlacementStrategy;
 import com.brunomnsilva.smartgraph.graphview.SmartGraphPanel;
 import com.brunomnsilva.smartgraph.graphview.SmartPlacementStrategy;
@@ -31,7 +33,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 
 /**
- * The View for the result graph.
+ * The View for the Results Use Case.
  */
 public class ResultsView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -39,6 +41,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     private static final int HEIGHT = 600;
     private static final int FRAME_WIDTH = 400;
     private static final int FRAME_HEIGHT = 500;
+
     private final ResultsViewModel resultsViewModel;
     private final String viewName = "results";
     private ResultsController resultsController;
@@ -47,10 +50,9 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     private Set<Edge> edges = new HashSet<>();
 
     private final JFXPanel jfxPanel = new JFXPanel();
-    private Digraph<String, String> g = new DigraphEdgeList<>();
+    private final Digraph<String, String> g = new DigraphEdgeList<>();
     private SmartPlacementStrategy initialPlacement = new SmartRandomPlacementStrategy();
     private SmartGraphPanel<String, String> graphView = new SmartGraphPanel<>(g, initialPlacement);
-
 
     public ResultsView(ResultsViewModel resultsViewModel) {
 
@@ -73,7 +75,6 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         this.add(title);
         this.add(goBack);
 
-
         goBack.addActionListener(
                 evt -> {
                     if (this.resultsController != null) {
@@ -91,7 +92,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
             try {
                 g.insertVertex(a.getDoi());
             }
-            catch (IllegalArgumentException exception) {
+            catch (Exception exception) {
                 exception.printStackTrace();
             }
         }
@@ -100,7 +101,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
             try {
                 g.insertEdge(e.getPaper().getDoi(), e.getReference().getDoi(), Integer.toString(counter));
             }
-            catch (IllegalArgumentException exception) {
+            catch (Exception exception) {
                 exception.printStackTrace();
             }
             counter++;
@@ -109,6 +110,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
     }
 
     @Override
@@ -126,7 +128,8 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         graphView = new SmartGraphPanel<>(g, initialPlacement);
 
         // add graph to javafx panel
-        final Scene scene = new Scene(graphView, WIDTH, HEIGHT);
+
+        final Scene scene = new Scene(graphView, 800, 600);
         jfxPanel.setScene(scene);
 
         // IMPORTANT! - Called after scene is displayed, so we can initialize the graph visualization
@@ -158,6 +161,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
                 }
             }
         });
+        ///////////////////////////////////////////
 
         // Reset visibility of the fields
 
@@ -172,5 +176,5 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     public void setResultsController(ResultsController resultsController) {
         this.resultsController = resultsController;
     }
-}
 
+}
