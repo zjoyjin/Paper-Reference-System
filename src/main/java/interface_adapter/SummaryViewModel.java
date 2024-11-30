@@ -5,6 +5,7 @@ package interface_adapter;
  */
 public class SummaryViewModel {
     private String summary;
+
     public SummaryViewModel(String summary) {
         this.summary = summary;
     }

@@ -1,15 +1,20 @@
 package view;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
 
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
@@ -66,9 +71,6 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-
-
-
         final LoggedInState loggedInState = loggedInViewModel.getState();
         search.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -84,43 +86,40 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
                 }
         );
 
-        JPopupMenu popupMenu = new JPopupMenu();
+        final JPopupMenu popupMenu = new JPopupMenu();
 
-//        ArrayList<String> searchHistories = this.queryController.getSearchHistory(loggedInState.getUsername());
-
+        // ArrayList<String> searchHistories = this.queryController.getSearchHistory(loggedInState.getUsername());
 
         queryInputField.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e){
+            public void mouseClicked(MouseEvent e) {
                 queryController.showSearchHistory(loggedInState.getUsername(), queryInputField, popupMenu);
             }
         });
 
-//        queryInputField.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                popupMenu.removeAll(); // Clear existing suggestions
-//                String input = queryInputField.getText().toLowerCase();
-//
-//                for (String history : searchHistories) {
-//                    if (history.toLowerCase().contains(input)) {
-//                        JMenuItem item = new JMenuItem(history);
-//                        item.addActionListener(new ActionListener() {
-//                            @Override
-//                            public void actionPerformed(ActionEvent e) {
-//                                queryInputField.setText(history); // Autofill the text field
-//                                popupMenu.setVisible(false); // Hide the popup
-//                            }
-//                        });
-//                        popupMenu.add(item);
-//                    }
-//                }
-//
-//                if (popupMenu.getComponentCount() > 0) {
-//                    popupMenu.show(queryInputField, 0, queryInputField.getHeight());
-//                }
-//            }
-//        });
+        // queryInputField.addMouseListener(new MouseAdapter() {
+        //      @Override
+        //      public void mouseClicked(MouseEvent e) {
+        //          popupMenu.removeAll(); // Clear existing suggestions
+        //          String input = queryInputField.getText().toLowerCase();
+        //          for (String history : searchHistories) {
+        //              if (history.toLowerCase().contains(input)) {
+        //                  JMenuItem item = new JMenuItem(history);
+        //                  item.addActionListener(new ActionListener() {
+        //                      @Override
+        //                      public void actionPerformed(ActionEvent e) {
+        //                          queryInputField.setText(history); // Autofill the text field
+        //                          popupMenu.setVisible(false); // Hide the popup
+        //                      }
+        //                  });
+        //                  popupMenu.add(item);
+        //              }
+        //          }
+        //          if (popupMenu.getComponentCount() > 0) {
+        //              popupMenu.show(queryInputField, 0, queryInputField.getHeight());
+        //          }
+        //      }
+        //  });
         this.add(title);
         this.add(searchInfo);
         this.add(buttons);

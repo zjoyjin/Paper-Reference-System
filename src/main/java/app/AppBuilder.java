@@ -46,12 +46,7 @@ import use_case.results.ResultsDataAccessInterface;
 import use_case.results.ResultsInputBoundary;
 import use_case.results.ResultsInteractor;
 import use_case.results.ResultsOutputBoundary;
-
 import use_case.search_history.SearchHistoryDataAcessInterface;
-
-
-import view.*;
-
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -61,7 +56,6 @@ import view.QueryView;
 import view.ResultsView;
 import view.SignupView;
 import view.ViewManager;
-
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
