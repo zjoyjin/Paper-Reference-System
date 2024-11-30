@@ -1,20 +1,5 @@
 package view;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import SummaryPanelModule.SummaryPanel;
 import com.brunomnsilva.smartgraph.graph.Digraph;
 import com.brunomnsilva.smartgraph.graph.DigraphEdgeList;
@@ -30,26 +15,33 @@ import interface_adapter.results.ResultsViewModel;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 
-/**
- * The View for the result graph.
- */
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+
 public class ResultsView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
-    private static final int FRAME_WIDTH = 400;
-    private static final int FRAME_HEIGHT = 500;
     private final ResultsViewModel resultsViewModel;
     private final String viewName = "results";
     private ResultsController resultsController;
 
-    private Set<Article> articles = new HashSet<>();
-    private Set<Edge> edges = new HashSet<>();
+    Set<Article> articles = new HashSet<>();
+    Set<Edge> edges = new HashSet<>();
 
     private final JFXPanel jfxPanel = new JFXPanel();
-    private Digraph<String, String> g = new DigraphEdgeList<>();
-    private SmartPlacementStrategy initialPlacement = new SmartRandomPlacementStrategy();
-    private SmartGraphPanel<String, String> graphView = new SmartGraphPanel<>(g, initialPlacement);
+    Digraph<String, String> g = new DigraphEdgeList<>();
+    SmartPlacementStrategy initialPlacement = new SmartRandomPlacementStrategy();
+    SmartGraphPanel<String, String> graphView = new SmartGraphPanel<>(g, initialPlacement);
+
+
 
 
     public ResultsView(ResultsViewModel resultsViewModel) {
@@ -64,7 +56,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         goBack.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         /////////////////////
-        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.setPreferredSize(new Dimension(800, 600));
         ////////////
 
         // add javafx panel for the graph
@@ -86,30 +78,31 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         );
     }
 
-    private void populateGraph(Set<Article> articleList, Set<Edge> edgeList) {
-        for (Article a : articleList) {
+    private void populateGraph(Set<Article> articles, Set<Edge> edges) {
+        for (Article a : articles) {
             try {
                 g.insertVertex(a.getDoi());
-            }
-            catch (IllegalArgumentException exception) {
-                exception.printStackTrace();
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
         }
         int counter = 0;
-        for (Edge e : edgeList) {
+        for (Edge e : edges) {
             try {
                 g.insertEdge(e.getPaper().getDoi(), e.getReference().getDoi(), Integer.toString(counter));
-            }
-            catch (IllegalArgumentException exception) {
-                exception.printStackTrace();
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
             counter++;
         }
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
+
     }
+
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -125,11 +118,13 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         initialPlacement = new SmartCircularSortedPlacementStrategy();
         graphView = new SmartGraphPanel<>(g, initialPlacement);
 
+
         // add graph to javafx panel
-        final Scene scene = new Scene(graphView, WIDTH, HEIGHT);
+
+        Scene scene = new Scene(graphView, 800, 600);
         jfxPanel.setScene(scene);
 
-        // IMPORTANT! - Called after scene is displayed, so we can initialize the graph visualization
+        //IMPORTANT! - Called after scene is displayed, so we can initialize the graph visualization
         graphView.setAutomaticLayout(true);
         graphView.init();
 
@@ -138,26 +133,29 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
             System.out.println("Vertex double-clicked!");
             for (Article a : articles) {
                 if (a.getDoi().equals(graphVertex.getUnderlyingVertex().element())) {
-                    // System.out.println("Vertex has DOI: " + a.getDoi());
+//                    System.out.println("Vertex has DOI: " + a.getDoi());
                     System.out.println(a.getLink());
 
                     final Set<String> authorSet = Stream.of(a.getAuthors()).collect(Collectors.toSet());
 
-                    final SummaryPanel sumPanel = new SummaryPanel(a.getTitle(), authorSet, a.getPublication(),
+                    SummaryPanel sumPanel = new SummaryPanel(a.getTitle(), authorSet, a.getPublication(),
                             a.getLink());
 
                     final JFrame frame = new JFrame("Article Summary");
 
                     // Set up the frame to display the panel
                     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+                    frame.setSize(400, 500);
                     frame.setLocationRelativeTo(null);
                     frame.add(sumPanel);
                     frame.setVisible(true);
 
                 }
             }
+
         });
+        ///////////////////////////////////////////
+
 
         // Reset visibility of the fields
 
@@ -165,12 +163,12 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         repaint();
     }
 
-    public String getViewName() {
-        return viewName;
-    }
+    public String getViewName() { return viewName; }
 
     public void setResultsController(ResultsController resultsController) {
         this.resultsController = resultsController;
     }
+
 }
+
 
