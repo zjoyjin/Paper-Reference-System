@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import SummaryPanelModule.SummaryPanel;
 import com.brunomnsilva.smartgraph.graph.Digraph;
 import com.brunomnsilva.smartgraph.graph.DigraphEdgeList;
+import com.brunomnsilva.smartgraph.graph.InvalidVertexException;
 import com.brunomnsilva.smartgraph.graphview.SmartCircularSortedPlacementStrategy;
 import com.brunomnsilva.smartgraph.graphview.SmartGraphPanel;
 import com.brunomnsilva.smartgraph.graphview.SmartPlacementStrategy;
@@ -91,7 +92,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
             try {
                 g.insertVertex(a.getDoi());
             }
-            catch (IllegalArgumentException exception) {
+            catch (Exception exception) {
                 exception.printStackTrace();
             }
         }
@@ -100,7 +101,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
             try {
                 g.insertEdge(e.getPaper().getDoi(), e.getReference().getDoi(), Integer.toString(counter));
             }
-            catch (IllegalArgumentException exception) {
+            catch (Exception exception) {
                 exception.printStackTrace();
             }
             counter++;
