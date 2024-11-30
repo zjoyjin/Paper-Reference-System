@@ -1,19 +1,17 @@
 package data_access;
 
-import entity.User;
-
-import java.util.*;
-
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import use_case.search_history.SearchHistoryDataAcessInterface;
 
+/**
+ * DAO for history data.
+ */
 public class InMemorySearchHistoryDataAcessObject implements SearchHistoryDataAcessInterface {
 
     private final Map<String, ArrayList<String>> users = new HashMap<>();
-
 
     @Override
     public boolean existsByName(String identifier) {
