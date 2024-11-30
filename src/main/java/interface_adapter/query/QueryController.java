@@ -1,15 +1,14 @@
 package interface_adapter.query;
 
-import java.util.ArrayList;
 import java.util.Set;
 
+import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
+
 import entity.Article;
-import entity.User;
 import use_case.query.QueryInputBoundary;
 import use_case.query.QueryInputData;
 import use_case.results.ResultsDataAccessInterface;
-
-import javax.swing.*;
 
 /**
  * The controller for the Query Use Case.
@@ -26,6 +25,7 @@ public class QueryController {
     /**
      * Executes the Query Use Case.
      * @param topic the topic being searched about
+     * @param username the username of the user.
      */
     public void execute(String topic, String username) {
         final QueryInputData queryInputData = new QueryInputData(topic, username);
@@ -68,9 +68,15 @@ public class QueryController {
         queryUseCaseInteractor.switchToQueryView();
     }
 
-
+    /**
+     * Executes the "show search history" Use Case.
+     * @param username the username.
+     * @param queryInputField the text field that take the topic entered.
+     * @param popupMenu the popup menu that displays search history.
+     */
     public void showSearchHistory(String username, JTextField queryInputField, JPopupMenu popupMenu) {
-        queryUseCaseInteractor.showSearchHistory(username, queryInputField, popupMenu);}
+        queryUseCaseInteractor.showSearchHistory(username, queryInputField, popupMenu);
+    }
 
     /**
      * Executes the "switch to LoggedInView" Use Case.
