@@ -1,5 +1,4 @@
 package use_case.query;
-import entity.User;
 
 /**
  * The Input Data for the Query Use Case.
@@ -9,7 +8,8 @@ public class QueryInputData {
     private final String username;
 
     public QueryInputData(String topic, String username) {
-        this.topic = topic; this.username = username;
+        this.topic = topic;
+        this.username = username;
     }
 
     String getTopic() {
