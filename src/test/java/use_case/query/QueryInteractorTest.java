@@ -62,4 +62,39 @@ public class QueryInteractorTest {
         interactor.execute(inputData2);
     }
 
+
+    @Test
+    void successEmptyDataTest() {
+        SearchHistoryDataAcessInterface sHRepository = new InMemorySearchHistoryDataAcessObject();
+
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("mr.bwz", "password");
+
+        ArrayList<String> test_arr = new ArrayList<>();
+
+
+        // This creates a successPresenter that tests whether the test case is as we expect.
+        QueryOutputBoundary successPresenter = new QueryOutputBoundary() {
+            @Override
+            public void showSearchHistory(ArrayList<String> arr, JTextField queryInputField, JPopupMenu popupMenu) {
+                assertEquals(test_arr, arr);
+            }
+
+            @Override
+            public void prepareSuccessView(QueryOutputData outputData){};
+
+            @Override
+            public void switchToResultsView(){};
+
+            @Override
+            public void switchToQueryView(){};
+
+            @Override
+            public void switchToLoggedInView(){};
+
+        };
+        QueryInputBoundary interactor = new QueryInteractor(successPresenter, sHRepository);
+    }
+
+
 }
