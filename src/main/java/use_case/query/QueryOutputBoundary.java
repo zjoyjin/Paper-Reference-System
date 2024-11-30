@@ -1,5 +1,8 @@
 package use_case.query;
 
+import javax.swing.*;
+import java.util.ArrayList;
+
 /**
  * The output boundary for the Query Use Case.
  */
@@ -19,4 +22,10 @@ public interface QueryOutputBoundary {
      * Switches to the Query View.
      */
     void switchToQueryView();
+
+
+    void showSearchHistory(ArrayList<String> username, JTextField queryInputField, JPopupMenu popupMenu);
+
+    void switchToLoggedInView();
+
 }

@@ -98,6 +98,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
                 g2d.setPaint(gradient);
                 g2d.fillRect(0, 0, getWidth(), getHeight());
+
+                repaint();
             }
         };
         this.setLayout(new BorderLayout());
