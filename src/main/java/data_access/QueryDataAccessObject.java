@@ -36,7 +36,7 @@ public class QueryDataAccessObject implements QueryDataAccessInterface, ResultsD
     private static final String DATE_PARTS = "date-parts";
     private static final String REFERENCE = "reference";
 
-    private static final int NUM_OUTPUTS = 10;
+    private static final int NUM_OUTPUTS = 20;
 
     private Set<Article> articles = new HashSet<>();
 
