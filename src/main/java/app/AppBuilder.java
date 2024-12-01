@@ -9,6 +9,7 @@ import javax.swing.WindowConstants;
 
 import data_access.InMemorySearchHistoryDataAcessObject;
 import data_access.InMemoryUserDataAccessObject;
+import data_access.QueryDataAccessObject;
 import data_access.TestDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -75,7 +76,7 @@ public class AppBuilder {
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final SearchHistoryDataAcessInterface searchHistoryDao = new InMemorySearchHistoryDataAcessObject();
 
-    private final ResultsDataAccessInterface queryDao = new TestDataAccessObject();
+    private final ResultsDataAccessInterface queryDao = new QueryDataAccessObject();
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
