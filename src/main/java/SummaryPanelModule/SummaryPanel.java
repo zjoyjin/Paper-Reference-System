@@ -8,10 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SummaryPanel extends JPanel {
-    private final JLabel titleLabel;
-    private final JLabel authorsLabel;
-    private final JLabel publicationLabel;
-    private final JTextArea summaryTextArea;
+    public final JLabel titleLabel;
+    public final JLabel authorsLabel;
+    public final JLabel publicationLabel;
+    public final JTextArea summaryTextArea;
     
     // initialize the panel aitcle details and the summary
     public SummaryPanel(String title, Set<String> authors, String publication, String URL) {
