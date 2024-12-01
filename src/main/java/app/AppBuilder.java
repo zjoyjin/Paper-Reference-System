@@ -270,7 +270,7 @@ public class AppBuilder {
      * @return the application
      */
     public JFrame build() {
-        final JFrame application = new JFrame("Login Example");
+        final JFrame application = new JFrame("Paper Reference System");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         cardPanel.setBorder(null);
