@@ -51,7 +51,7 @@ public class ResultsView extends JPanel implements PropertyChangeListener {
 
     private final JFXPanel jfxPanel = new JFXPanel();
     private final Digraph<String, String> g = new DigraphEdgeList<>();
-    private SmartPlacementStrategy initialPlacement = new SmartRandomPlacementStrategy();
+    private SmartPlacementStrategy initialPlacement = new SmartCircularSortedPlacementStrategy();
     private SmartGraphPanel<String, String> graphView = new SmartGraphPanel<>(g, initialPlacement);
 
     public ResultsView(ResultsViewModel resultsViewModel) {
