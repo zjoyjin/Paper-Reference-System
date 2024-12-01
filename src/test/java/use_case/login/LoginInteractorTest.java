@@ -14,19 +14,19 @@ class LoginInteractorTest {
 
     @Test
     void successTest() {
-        LoginInputData inputData = new LoginInputData("Paul", "password");
+        LoginInputData inputData = new LoginInputData("Paris Saint Germain", "password");
         LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Paul", "password");
+        User user = factory.create("Paris Saint Germain", "password");
         userRepository.save(user);
 
         // This creates a successPresenter that tests whether the test case is as we expect.
         LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
             @Override
             public void prepareSuccessView(LoginOutputData user) {
-                assertEquals("Paul", user.getUsername());
+                assertEquals("Paris Saint Germain", user.getUsername());
             }
 
             @Override
@@ -49,19 +49,19 @@ class LoginInteractorTest {
 
     @Test
     void successUserLoggedInTest() {
-        LoginInputData inputData = new LoginInputData("Paul", "password");
+        LoginInputData inputData = new LoginInputData("Paris Saint Germain", "password");
         LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Paul", "password");
+        User user = factory.create("Paris Saint Germain", "password");
         userRepository.save(user);
 
         // This creates a successPresenter that tests whether the test case is as we expect.
         LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
             @Override
             public void prepareSuccessView(LoginOutputData user) {
-                assertEquals("Paul", userRepository.getCurrentUsername());
+                assertEquals("Paris Saint Germain", userRepository.getCurrentUsername());
             }
 
             @Override
@@ -86,13 +86,13 @@ class LoginInteractorTest {
 
     @Test
     void failurePasswordMismatchTest() {
-        LoginInputData inputData = new LoginInputData("Paul", "wrong");
+        LoginInputData inputData = new LoginInputData("Paris Saint Germain", "wrong");
         LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // For this failure test, we need to add Paul to the data access repository before we log in, and
         // the passwords should not match.
         UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Paul", "password");
+        User user = factory.create("Paris Saint Germain", "password");
         userRepository.save(user);
 
         // This creates a presenter that tests whether the test case is as we expect.
@@ -105,7 +105,7 @@ class LoginInteractorTest {
 
             @Override
             public void prepareFailView(String error) {
-                assertEquals("Incorrect password for \"Paul\".", error);
+                assertEquals("Incorrect password for \"Paris Saint Germain\".", error);
             }
 
             @Override
@@ -123,7 +123,7 @@ class LoginInteractorTest {
 
     @Test
     void failureUserDoesNotExistTest() {
-        LoginInputData inputData = new LoginInputData("Paul", "password");
+        LoginInputData inputData = new LoginInputData("Paris Saint Germain", "password");
         LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // Add Paul to the repo so that when we check later they already exist
@@ -138,7 +138,7 @@ class LoginInteractorTest {
 
             @Override
             public void prepareFailView(String error) {
-                assertEquals("Paul: Account does not exist.", error);
+                assertEquals("Paris Saint Germain: Account does not exist.", error);
             }
 
             @Override
