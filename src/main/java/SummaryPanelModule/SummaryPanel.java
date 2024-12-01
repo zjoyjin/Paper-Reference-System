@@ -12,7 +12,7 @@ public class SummaryPanel extends JPanel {
     public final JLabel authorsLabel;
     public final JLabel publicationLabel;
     public final JTextArea summaryTextArea;
-    
+
     // initialize the panel aitcle details and the summary
     public SummaryPanel(String title, Set<String> authors, String publication, String URL) {
         // Set up the layout for the panel
@@ -56,7 +56,7 @@ public class SummaryPanel extends JPanel {
         // replace this later
         final String[] authors = {"Author A", "Author B"};
         // replace this with article.getpublication year
-        final String publicationYear = "2022";
+        final String publicationYear = "2024";
         final Article article = new Article("1234.5678", "Sample Article Title", authors, publicationYear, new HashSet<>());
 
         // Use the link

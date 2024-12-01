@@ -28,7 +28,7 @@ Using Java Swing, the program allows users to enter research topics and see rele
 
 ### Examples (User Stories):
 - As a student writing a paper on “Should Ontario School Board need to ban phones in classrooms”, I am unsure about where to start. I enter some keywords into the search bar, which generates a graph displaying the 10 most relevant articles. Articles that cite each other (and are thus more related) are visualized, allowing me to easily identify which group of articles are most relevant to my topic, and which articles may be used to further extend my research in a particular direction. When you touble click on each articles, you will be given the summarization of the article, the title and the public Year of the article. [team story] 
-- As a student, I want to be able to sign up/log in to the research paper database in order to be able to search for papers that I can use for my own research, and seeing a nice UI for user experience. [Bowen]
+- As a student, I want to be able to sign up/log in to the research paper database in order to be able to see my search history everytime. As a User I also want to see some nice UI [Bowen]
 - As a student writing a research paper on Alzheimer's disease, I want to be able to type in my topic in the search bar and search for research papers relevant to my topic. [Liz]
 - As a student writing a research paper on the role of pets in reducing stress, I want to be able to be shown a summarization View of the most relevant paper, including the title, authors, publications year and the detailed summarization of the article. The application should have an API implented to summarize the provided article. [Joyee]
 - As a student writing a research paper on the hippo pathway, I want to be able to use the generated directed graph to see which paper cite which. This way, I can see which paper is the most recent (as it cites most of the other papers) or which paper contains the most fundamental information (as most of the other papers cite it), and then use the one that corresponds most with what I want in my own research paper. [Ashley]
@@ -60,10 +60,10 @@ This application was created to address the common challenge students face when 
 - Enter your password and click login. If the password is correct, it will direct you to the logged in page.
 - <img src="images/loggedin.png" alt="Example Image" width="400">
 - If you want to search for references now, click go to search. 
-- <img src="images/search%20page.png" alt="Example Image" width="400">
-- Enter your topic and you will get a graph with ten articles relevant to the topic.
+- <img src="images/searchpage.png" alt="Example Image" width="400">
+- Enter your topic and you will get a graph with ten articles relevant to the topic. You will be able see and select your search history in the pop up menu on the bottom of the page.
 - <img src="images/resultgraph.png" alt="Example Image" width="400">
-- Double click on the nodes to see a summary of the article.
+- Double click on the nodes to see a summary of the article. Or you can click return to go back to the search page.
 - <img src="images/summary.png" alt="Example Image" width="400">
 
 ## 5. License
