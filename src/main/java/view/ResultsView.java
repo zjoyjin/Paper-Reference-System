@@ -35,7 +35,7 @@ import javafx.scene.Scene;
 /**
  * The View for the Results Use Case.
  */
-public class ResultsView extends JPanel implements ActionListener, PropertyChangeListener {
+public class ResultsView extends JPanel implements PropertyChangeListener {
 
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
@@ -108,10 +108,6 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
