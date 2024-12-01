@@ -66,7 +66,7 @@ public class QueryDataAccessObject implements QueryDataAccessInterface, ResultsD
             if (responseBody.getString(STATUS_CODE_LABEL).equals(SUCCESS_CODE)) {
                 final JSONArray resultsJSONArray = responseBody.getJSONObject(MESSAGE).getJSONArray(ITEMS);
                 int i = 0;
-                while (articles.size() < Integer.min(NUM_OUTPUTS, resultsJSONArray.length())) {
+                while (i < Integer.min(NUM_OUTPUTS, resultsJSONArray.length())) {
                     final JSONObject articleJSONObject = resultsJSONArray.getJSONObject(i);
 
                     if (articleJSONObject.has(DOI) && articleJSONObject.has(TITLE) && articleJSONObject.has(AUTHOR)
@@ -82,7 +82,12 @@ public class QueryDataAccessObject implements QueryDataAccessInterface, ResultsD
                         // get authors
                         for (int j = 0; j < authorsJSONArr.length(); j++) {
                             final JSONObject author = authorsJSONArr.getJSONObject(j);
-                            authors[j] = author.getString(GIVEN) + " " + author.getString(FAMILY);
+                            try {
+                                authors[j] = author.getString(GIVEN) + " " + author.getString(FAMILY);
+                            }
+                            catch (JSONException exception) {
+                                authors[j] = "[Author not found]";
+                            }
                         }
                         // get date
                         final JSONArray dateJSONArr = articleJSONObject.getJSONObject(DATE).getJSONArray(DATE_PARTS)
