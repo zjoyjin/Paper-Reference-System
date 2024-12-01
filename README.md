@@ -60,10 +60,10 @@ This application was created to address the common challenge students face when 
 - Enter your password and click login. If the password is correct, it will direct you to the logged in page.
 - <img src="images/loggedin.png" alt="Example Image" width="400">
 - If you want to search for references now, click go to search. 
-- <img src="images/search%20page.png" alt="Example Image" width="400">
-- Enter your topic and you will get a graph with ten articles relevant to the topic.
+- <img src="images/searchpage.png" alt="Example Image" width="400">
+- Enter your topic and you will get a graph with ten articles relevant to the topic. You will be able see and select your search history in the pop up menu on the bottom of the page.
 - <img src="images/resultgraph.png" alt="Example Image" width="400">
-- Double click on the nodes to see a summary of the article.
+- Double click on the nodes to see a summary of the article. Or you can click return to go back to the search page.
 - <img src="images/summary.png" alt="Example Image" width="400">
 
 ## 5. License
