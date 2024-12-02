@@ -1,6 +1,6 @@
-package SummaryPanelModule;
+package data_access;
 
-import interface_adapter.SummaryViewModel;
+import interface_adapter.summary.SummaryViewModel;
 import com.cohere.api.Cohere;
 import com.cohere.api.core.CohereApiError;
 import com.cohere.api.requests.ChatRequest;

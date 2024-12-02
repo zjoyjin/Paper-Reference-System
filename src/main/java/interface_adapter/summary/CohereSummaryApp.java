@@ -1,7 +1,6 @@
-package view;
+package interface_adapter.summary;
 
 import data_access.CohereSummarizationGateway;
-import interface_adapter.SummaryViewModel;
 import use_case.summarization.SummarizeArticle;
 
 public class CohereSummaryApp {

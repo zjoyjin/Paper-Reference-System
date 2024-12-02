@@ -1,6 +1,6 @@
 package use_case.summary;
 
-import SummaryPanelModule.SummaryPanel;
+import view.SummaryPanel;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

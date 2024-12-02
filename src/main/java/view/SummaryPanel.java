@@ -1,6 +1,7 @@
-package SummaryPanelModule;
+package view;
 
 import entity.Article;
+import data_access.CohereSummary01;
 
 import javax.swing.*;
 import java.awt.*;
