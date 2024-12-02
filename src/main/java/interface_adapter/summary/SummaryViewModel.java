@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.summary;
 
 /**
  * The View Model for the Summary View.
