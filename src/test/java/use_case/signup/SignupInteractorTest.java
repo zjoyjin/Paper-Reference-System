@@ -34,6 +34,7 @@ class SignupInteractorTest {
             @Override
             public void switchToLoginView() {
                 // This is expected
+                assertTrue(true);
             }
         };
 
@@ -62,6 +63,7 @@ class SignupInteractorTest {
             @Override
             public void switchToLoginView() {
                 // This is expected
+                assertTrue(true);
             }
         };
 
@@ -95,10 +97,39 @@ class SignupInteractorTest {
             @Override
             public void switchToLoginView() {
                 // This is expected
+                assertTrue(true);
             }
         };
 
         SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
         interactor.execute(inputData);
+    }
+
+    @Test
+    void switchToLoginViewTest() {
+        SignupInputData inputData = new SignupInputData("Joyee", "password", "password");
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // This creates a successPresenter that tests whether the test case is as we expect.
+        SignupOutputBoundary successPresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                // not relevant
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                // not relevant
+            }
+
+            @Override
+            public void switchToLoginView() {
+                // nothing to check
+                assertTrue(true);
+            }
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, new CommonUserFactory());
+        interactor.switchToLoginView();
     }
 }

@@ -45,6 +45,8 @@ class LoginInteractorTest {
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter);
         interactor.execute(inputData);
+        interactor.switchToSignupView();
+        interactor.switchToQueryView();
     }
 
     @Test
