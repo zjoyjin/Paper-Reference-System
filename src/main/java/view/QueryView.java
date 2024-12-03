@@ -1,6 +1,17 @@
 package view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.LinearGradientPaint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -53,9 +64,10 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
     private static final int LIGHT_BLUE_BUTTON_R = 135;
     private static final int LIGHT_BLUE_BUTTON_G = 206;
     private static final int LIGHT_BLUE_BUTTON_B = 250;
-    private static final int LIGHT_BLUE_LINK_R = 0;
-    private static final int LIGHT_BLUE_LINK_G = 102;
-    private static final int LIGHT_BLUE_LINK_B = 204;
+    private static final int LINEN_BUTTON_R = 251;
+    private static final int LINEN_BUTTON_G = 242;
+    private static final int LINEN_BUTTON_B = 234;
+    private static final int GRIDY = 4;
 
     private final String viewName = "query";
 
@@ -78,7 +90,6 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         final JLabel title = new JLabel("Paper Reference System: ");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
         final JPanel queryPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -88,11 +99,11 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
                 // Define lighter tones of the colors for the gradient
                 // Light Blue, Light Green, Light Purple, Light Pink, Light Orange
                 final Color[] colors = {
-                        new Color(LIGHT_BLUE_R, LIGHT_BLUE_G, LIGHT_BLUE_B),
-                        new Color(LIGHT_GREEN_R, LIGHT_GREEN_G, LIGHT_GREEN_B),
-                        new Color(LIGHT_PURPLE_R, LIGHT_PURPLE_G, LIGHT_PURPLE_B),
-                        new Color(LIGHT_PINK_R, LIGHT_PINK_G, LIGHT_PINK_B),
-                        new Color(LIGHT_ORANGE_R, LIGHT_ORANGE_G, LIGHT_ORANGE_B)};
+                    new Color(LIGHT_BLUE_R, LIGHT_BLUE_G, LIGHT_BLUE_B),
+                    new Color(LIGHT_GREEN_R, LIGHT_GREEN_G, LIGHT_GREEN_B),
+                    new Color(LIGHT_PURPLE_R, LIGHT_PURPLE_G, LIGHT_PURPLE_B),
+                    new Color(LIGHT_PINK_R, LIGHT_PINK_G, LIGHT_PINK_B),
+                    new Color(LIGHT_ORANGE_R, LIGHT_ORANGE_G, LIGHT_ORANGE_B)};
                 final float[] fractions = {0.0f, 0.25f, 0.5f, 0.75f, 1.0f};
 
                 // Create a LinearGradientPaint for the multicolor background
@@ -111,7 +122,7 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         queryPanel.setLayout(new GridBagLayout());
         this.add(queryPanel, BorderLayout.CENTER);
 
-        this.setBackground(new Color(251, 242, 234));
+        this.setBackground(new Color(LINEN_BUTTON_R, LINEN_BUTTON_G, LINEN_BUTTON_B));
 
         // Create reusable GridBagConstraints for layout
         final GridBagConstraints gbc = new GridBagConstraints();
@@ -125,25 +136,19 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         title.setFont(new Font("Arial", Font.BOLD, SIZE));
         title.setForeground(Color.DARK_GRAY);
 
-
-
         gbc.gridx = 0;
         gbc.gridy = 0;
         // Center across two columns
         gbc.gridwidth = 2;
         queryPanel.add(title, gbc);
 
-
         gbc.gridy++;
         gbc.gridx = 0;
         final LabelTextPanel searchInfo = new LabelTextPanel(
                 new JLabel("Enter search topic:"), queryInputField);
-        searchInfo.setBackground(new Color(251, 242, 234));
+        searchInfo.setBackground(new Color(LINEN_BUTTON_R, LINEN_BUTTON_G, LINEN_BUTTON_B));
 
-
-
-
-        gbc.gridy = 4;
+        gbc.gridy = GRIDY;
         gbc.gridx = 0;
         search = new JButton("Search!");
         search.setBackground(new Color(LIGHT_BLUE_BUTTON_R, LIGHT_BLUE_BUTTON_G, LIGHT_BLUE_BUTTON_B));
@@ -151,7 +156,7 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         search.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         queryPanel.add(search);
 
-        gbc.gridy = 4;
+        gbc.gridy = GRIDY;
         gbc.gridx = 1;
         final JLabel cancelLink = new JLabel("Cancel");
         // Light blue hyperlink color
@@ -219,7 +224,7 @@ public class QueryView extends JPanel implements ActionListener, PropertyChangeL
         //  });
         this.add(title);
         this.add(searchInfo);
-//        this.add(quer);
+        //  this.add(quer);
     }
 
     @Override
